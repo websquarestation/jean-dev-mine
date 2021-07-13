@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "jeanui",
+    "public": "dist/jean-ui1",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

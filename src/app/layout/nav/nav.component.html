@@ -1,0 +1,58 @@
+<!-- Page Wrapper -->
+<div id="wrapper">
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+	<!-- Sidebar - Brand -->
+	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+		<div class="sidebar-brand-icon rotate-n-15">
+			<i class="fas fa-laugh-wink"></i>
+		</div>
+		<div class="sidebar-brand-text mx-3">Admin</div>
+	</a>
+
+	<!-- Divider -->
+	<hr class="sidebar-divider my-0">
+	<ng-container *ngFor="let nav of navs">
+	<!-- Nav Item - Dashboard -->
+	<li class="nav-item active">
+		<div class="nav-label">
+		<a class="nav-link" aria-expanded="true" href="{{nav.url}">
+			<i class="fas fa-fw fa-tachometer-alt"></i>
+			<span>{{nav.label}}</span>						
+		</a>
+		</div>
+		<div class="add-folder" *ngIf="nav.children && nav.children.length" (click)="addFolder()">+
+		</div>
+	    <div style="clear: both;"></div>	        
+	      <div class="inp-folder" *ngIf="nav.label == 'Personal'" [hidden]="!isInp">
+	      	<form>
+                <div class="bg-white py-2 collapse-inner rounded form-group row" style="width: 95%; margin-left: 0;">
+                    <div class="col-sm-8 mb-8 mb-sm-0">
+	      				<input type="text" class="form-control form-control-user" placeholder="Add New Folder" id="inpFolder" name="txtFolder" (keyup.enter)="saveFolder($event)">
+	      			</div>
+	      			<div class="col-sm-2 mb-2 mb-sm-0">	
+			      	<span (click)="closeFolderInp()" class="closeInpd">X</span>
+			      	</div>
+	      		</div>	
+	      	</form>	
+	      </div>
+		<div *ngIf="nav.children && nav.children.length" class="collapse show">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Custom Folders:</h6>
+                <div class="child-menu-wrapper" *ngFor="let subitem of nav.children">
+                	<div class="menu-label">
+                    	<a class="collapse-item" href="buttons.html">{{ subitem.folderName }}</a>
+                    </div>
+                    <div (click)="deleteFolder(subitem.id, subitem.folderName)" class="del-folder list-nav-icon list-nav-icon-sm">X
+	                </div>
+	                <div style="clear: both;"></div>
+            	</div>
+               </div>
+            </div>
+		</li>
+
+		<!-- Divider -->
+		<hr class="sidebar-divider">
+	</ng-container>	
+</ul>
+<!-- End of Sidebar -->

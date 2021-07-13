@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "label": "Featured",
+        "url": "/featured",
+        "icon": ""
+    },
+    {
+        "id": 2,
+        "label": "Personal",
+        "url": "/folders/personal",
+        "icon": ""
+    },
+    {
+        "id": 3,
+        "label": "Shared",
+        "url": "/",
+        "icon": ""
+    },
+    {
+        "id": 4,
+        "label": "Drafts",
+        "url": "/",
+        "icon": ""
+    }
+]

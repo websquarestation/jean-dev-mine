@@ -1,0 +1,36 @@
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">PERSONAL</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table datatable [dtOptions]="dtOptions" class="row-border hover">
+            <thead>
+              <tr>
+                <th><input type="checkbox"></th>
+                <th>TYPE</th>
+                <th>Name</th>
+                <th>STATUS</th>
+                <th>CREATED</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="enteries?.length != 0">
+              <tr *ngFor="let entery of enteries">
+                <td><input type="checkbox"></td>
+                <td>{{ entery.type }}</td>
+                <td>{{ entery.name }}</td>
+                <td>{{ entery.status }}</td>
+                <td>{{ entery.creationTime | date }}</td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="enteries?.length == 0">
+              <tr>
+                <td colspan="3" class="no-data-available">No data!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>

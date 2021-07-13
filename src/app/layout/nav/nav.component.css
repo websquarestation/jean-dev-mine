@@ -1,0 +1,65 @@
+.menu-label {
+	width: 70%;
+	float: left;
+}
+
+.del-folder {
+	float: left;
+	margin-left: 40px;
+	cursor: pointer;
+    position: relative;
+    top: 10px;
+    font-size: 11px;
+    font-family: monospace,sans-serif;
+}
+
+.child-menu-wrapper {
+	width:  100%;
+}
+
+.add-folder {
+	float:  right;
+	margin-right: 20px;
+	cursor: pointer;
+    color: #fff;
+    position: relative;
+    top: 10px;
+}
+
+.nav-label {
+	width: 70%;
+	float: left;
+}
+
+.inp-folder {	
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.closeInpd {
+	color: #750d0d;
+  cursor: pointer;
+  font-size: 11px;
+  font-family: cursive;
+  position: relative;
+  top: 5px;
+  /* padding: 6px; */
+  font-weight: bold;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #dadada;
+  font-size: 12px;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #dadada;
+  font-size: 12px;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #dadada;
+  font-size: 12px;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #dadada;
+  font-size: 12px;
+}
