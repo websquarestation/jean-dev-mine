@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { TokenStorageService } from './../../_services/token-storage.service';
 
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -32,6 +31,10 @@ export class HeaderComponent implements OnInit {
   }
 
   createPlasmID(): void {
-    this.router.navigate(['/create/entery']);
+    this.router.navigate(['/create/plasmid']);
+  }
+
+  localSearch(): void {
+    this.router.navigate(['/search']);
   }
 }

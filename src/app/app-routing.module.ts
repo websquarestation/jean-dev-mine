@@ -7,12 +7,14 @@ import { AuthGuard } from './_helpers/auth.gaurd';
 
 import { LoginComponent } from './login/login.component';
 import { EnteriesComponent } from './enteries/enteries.component';
+import { SearchComponent } from './search/search.component';
 import { CreateenteryComponent } from './createentery/createentery.component';
 
 const routes: Routes = [
   { path: 'enteries', component: EnteriesComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'create/entery', component: CreateenteryComponent },
+  { path: 'search', component: SearchComponent },
+  { path: 'create/plasmid', component: CreateenteryComponent },
   { path: 'folders/personal', component: EnteriesComponent },
   // { path: 'profile', component: ProfileComponent },
   // { path: 'user', component: BoardUserComponent },

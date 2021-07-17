@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
 import { FoldersService } from '../../_services/folders.service';
 
@@ -18,6 +19,7 @@ export class NavComponent implements OnInit {
   success_message!:String;
 
   constructor(
+    private router: Router,
     private foldersService: FoldersService,
     private httpClient: HttpClient) { }
 
@@ -110,6 +112,10 @@ export class NavComponent implements OnInit {
         }
       );
     }
+  }
+
+  goToPage(url: any) {
+    this.router.navigate([url]);
   }
 
 }

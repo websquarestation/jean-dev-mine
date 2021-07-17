@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataTablesModule } from "angular-datatables";
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -17,6 +17,16 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavComponent } from './layout/nav/nav.component';
 import { CreateenteryComponent } from './createentery/createentery.component';
+import { SearchComponent } from './search/search.component';
+
+import { LoaderService } from './_services/loader.service';
+import { LoaderInterceptor } from './interceptors/loader-interceptor.service';
+import { MyLoaderComponent } from './components/my-loader/my-loader.component';
+
+import { DatepickerModule } from 'ng2-datepicker';
+import { NgSelectModule } from '@ng-select/ng-select';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,7 +36,9 @@ import { CreateenteryComponent } from './createentery/createentery.component';
     HeaderComponent,
     FooterComponent,
     NavComponent,
-    CreateenteryComponent
+    CreateenteryComponent,
+    SearchComponent,
+    MyLoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +47,16 @@ import { CreateenteryComponent } from './createentery/createentery.component';
     DataTablesModule,
     BsDropdownModule.forRoot(),
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule,
+    DatepickerModule,
+    NgSelectModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [
+    authInterceptorProviders,
+    LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

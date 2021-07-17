@@ -23,9 +23,9 @@ export class EnteriesService {
   //   return this.httpClient.get(`${baseURL}/${id}`);
   // }
 
-  // create(data): Observable<any> {
-  //   return this.httpClient.post(baseURL, data);
-  // }
+  create(data: any): Observable<any> {
+    return this.httpClient.post(this.baseURL + '/parts', data);
+  }
 
   // update(id, data): Observable<any> {
   //   return this.httpClient.put(`${baseURL}/${id}`, data);
