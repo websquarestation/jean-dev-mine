@@ -3,6 +3,7 @@ export class Enteries {
   type?: string;
   visible?: string;
   recordId?: any;
+  partId?: string;
   name?: string;
   status?: string;
   creationTime?: string;

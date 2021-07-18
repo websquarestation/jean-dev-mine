@@ -11,7 +11,8 @@
               <tr>
                 <th><input type="checkbox"></th>
                 <th>TYPE</th>
-                <th>Name</th>
+                <th>PART ID</th>
+                <th>NAME</th>
                 <th>STATUS</th>
                 <th>CREATED</th>
               </tr>
@@ -20,6 +21,11 @@
               <tr *ngFor="let entery of enteries">
                 <td><input type="checkbox"></td>
                 <td>{{ entery.type }}</td>
+                <td>
+                  <a>
+                  {{ entery.partId }}
+                  </a>
+                </td>
                 <td>{{ entery.name }}</td>
                 <td>{{ entery.status }}</td>
                 <td>{{ entery.creationTime | date }}</td>
