@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 import { Enteries } from '../models/enteries.model';
@@ -12,8 +13,12 @@ import { TokenStorageService } from '../_services/token-storage.service';
 export class EnteriesComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
+  public page = 1;
+  public pageSize = 10;
+  itemsPerPage = 10;
+  totalItems: any;
 
-constructor(private enteriesService: EnteriesService, 
+  constructor(private enteriesService: EnteriesService, 
               private tokenStorageService: TokenStorageService) { }
 
   enteries?: Enteries[];
@@ -22,11 +27,29 @@ constructor(private enteriesService: EnteriesService,
     this.getEnteries();
   }
 
+  getPageSymbol(current: number) {
+    return ['A', 'B', 'C', 'D', 'E', 'F', 'G'][current - 1];
+  }
+
+  selectPage(page: string) {
+    this.page = parseInt(page, 10) || 1;
+    console.log(this.page);
+    this.getEnteries();
+  }
+
+
   getEnteries(): void {
-    this.enteriesService.readAll()
+
+    const params = new HttpParams()
+      .set('offset', this.page - 1)
+      .set('limit', this.itemsPerPage);
+
+    this.enteriesService.readAll(params)
     .subscribe(
       (res: any) => {
         console.log("response", res);
+        this.totalItems = res.resultCount;
+        console.log("tl---", this.totalItems);
         this.enteries = res.data;
       },
       err => {

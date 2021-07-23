@@ -18,12 +18,12 @@
               </tr>
             </thead>
             <tbody *ngIf="enteries?.length != 0">
-              <tr *ngFor="let entery of enteries">
+              <tr *ngFor="let entery of enteries | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                 <td><input type="checkbox"></td>
                 <td>{{ entery.type }}</td>
                 <td>
                   <a>
-                  {{ entery.partId }}
+                    {{ entery.partId }}
                   </a>
                 </td>
                 <td>{{ entery.name }}</td>
@@ -37,6 +37,11 @@
               </tr>
             </tbody>
           </table>
+          <ngb-pagination [collectionSize]="totalItems" [(page)]="page" aria-label="Custom pagination">
+            <ng-template ngbPaginationPrevious>Prev</ng-template>
+            <ng-template ngbPaginationNext>Next</ng-template>
+            <ng-template ngbPaginationNumber let-p>{{ getPageSymbol(p) }}</ng-template>
+          </ngb-pagination>
         </div>
       </div>
     </div>

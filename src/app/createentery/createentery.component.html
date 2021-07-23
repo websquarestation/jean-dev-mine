@@ -142,9 +142,10 @@
 	        					[(ngModel)]="createEnteryModel.principalInvestigator"
 	        					[items]="labsData"
  			              [searchable]="isSearchable"
+						   [addTag]="addCustomTag"
              				[loading]="loading"
 			              placeholder="Source Lab"	              
-			              (search)="fetchFilterData($event, 'sourcelabs')"single="true"
+			              (search)="fetchFilterData($event, 'sourcelabs')" 
 			              #principalInvestigator="ngModel">
 				    </ng-select>
           </div>
@@ -161,6 +162,7 @@
 	        					[(ngModel)]="createEnteryModel.backbone"
 	        					[items]="backboneData"
  			              [searchable]="isSearchable"
+						   [addTag]="addCustomTag"
              				[loading]="loading"
 			              placeholder="Backbone"	              
 			              (search)="fetchFilterData($event, 'backbone')"single="true"
@@ -180,6 +182,7 @@
 	        					[(ngModel)]="createEnteryModel.originOfReplication"
 	        					[items]="originreplicationData"
  			              [searchable]="isSearchable"
+						   [addTag]="addCustomTag"
              				[loading]="loading"
 			              placeholder="Origin of Replication"             
 			              (search)="fetchFilterData($event, 'originreplication')"single="true"
@@ -200,6 +203,7 @@
 	        					[items]="replicatesinData"
  			              [searchable]="isSearchable"
              				[loading]="loading"
+							[addTag]="addCustomTag"
 			              placeholder="Replicates In"	              
 			              (search)="fetchFilterData($event, 'replicatesIn')"single="true"
 			              #replicatesIn="ngModel">
@@ -218,6 +222,7 @@
 	        					[(ngModel)]="createEnteryModel.supplier"
 	        					[items]="supplierData"
  			              [searchable]="isSearchable"
+						   [addTag]="addCustomTag"
              				[loading]="loading"
 			              placeholder="Supplier"	              
 			              (search)="fetchFilterData($event, 'supplier')"single="true"
@@ -438,12 +443,20 @@
 
         <!-- Attachments -->
         <div class="form-group row">
-	        <div class="md-6">
+	        <div class="col-sm-2">
 	        	<label class="col-sm-2 col-form-label">Attachments</label>
 	        </div>
-	        <div class="md-6">
-	        	<label>T7 to XbaI Length</label>
-	        </div>
+			<div class="col-sm-2">
+	        	<span (click)="addAttachment()">
+          			<i class="fas fa-plus"></i>
+          		</span>          		
+          </div>
+		  	<ng-container *ngFor="let up of addUploadAttachments; let iu = index">
+				<div class="md-4">
+					<p><input type="file" class="file btn btn-primary"
+						(change)="handleFileInput($any($event.target).files)" /></p>
+				</div>
+			</ng-container>
         </div>        
 
         <!-- Notes -->

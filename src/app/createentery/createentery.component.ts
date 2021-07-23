@@ -47,7 +47,9 @@ export class CreateenteryComponent implements OnInit {
   PIVal: String = '';
   createdStatus: boolean = false;  
   isFormSubmitted = false;
+  addUploadAttachments: any = [];
   public createEnteryModel: any;
+  fileToUpload: File | null;
   parametersModel: any = {
     "key": "",
     "name": "",
@@ -245,6 +247,30 @@ export class CreateenteryComponent implements OnInit {
   removeParameters(i: number): void {  
     this.createEnteryModel.parameters.splice(i,1);
   }
+
+  addCustomTag  = (term:any) => ({id: term, name: term});  
+
+  addAttachment = () => {
+    this.addUploadAttachments.push(this.addUploadAttachments + 1);
+  };
+
+  handleFileInput(files: FileList): void {
+    console.log(files);
+    if(files.length > 0) {
+      this.fileToUpload = files.item(0);
+      console.log(this.fileToUpload);
+      if(this.fileToUpload != null) {
+        this.enteriesService.postFile(this.fileToUpload).subscribe(data => {
+            console.log(data);
+          // do something, if upload success
+          }, error => {
+            console.log(error);
+          });
+      } else {
+        console.log("please provide file to upload");
+      }
+    }
+}
 
   updateListModel(term: string, item: any): void {
     console.log(term);

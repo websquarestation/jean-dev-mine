@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from './../../environments/environment';
 import { Enteries } from '../models/enteries.model';
@@ -15,16 +15,19 @@ export class EnteriesService {
     this.baseURL = environment.baseUrl;
   }
 
-  readAll(): Observable<Enteries[]> {
-    return this.httpClient.get<Enteries[]>(this.baseURL + '/collections/personal/entries');
+  readAll(params: HttpParams): Observable<Enteries[]> {
+    return this.httpClient.get<Enteries[]>(this.baseURL + '/collections/personal/entries', { params });
   }
-
-  // read(id): Observable<any> {
-  //   return this.httpClient.get(`${baseURL}/${id}`);
-  // }
-
+  
   create(data: any): Observable<any> {
     return this.httpClient.post(this.baseURL + '/parts', data);
+  }
+
+  postFile(fileToUpload: File):Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    return this.httpClient
+      .post(this.baseURL + '/file/attachment', formData);
   }
 
   // update(id, data): Observable<any> {
