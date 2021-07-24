@@ -18,7 +18,7 @@
               </tr>
             </thead>
             <tbody *ngIf="enteries?.length != 0">
-              <tr *ngFor="let entery of enteries | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+              <tr *ngFor="let entery of enteries">
                 <td><input type="checkbox"></td>
                 <td>{{ entery.type }}</td>
                 <td>
@@ -36,12 +36,7 @@
                 <td colspan="3" class="no-data-available">No data!</td>
               </tr>
             </tbody>
-          </table>
-          <ngb-pagination [collectionSize]="totalItems" [(page)]="page" aria-label="Custom pagination">
-            <ng-template ngbPaginationPrevious>Prev</ng-template>
-            <ng-template ngbPaginationNext>Next</ng-template>
-            <ng-template ngbPaginationNumber let-p>{{ getPageSymbol(p) }}</ng-template>
-          </ngb-pagination>
+          </table>  
         </div>
       </div>
     </div>
