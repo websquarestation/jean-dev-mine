@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'enteries', component: EnteriesComponent },
   { path: 'login', component: LoginComponent },
   { path: 'search', component: SearchComponent },
-  { path: 'create/plasmid', component: CreateenteryComponent },
+  { path: 'create/entery', component: CreateenteryComponent },
   { path: 'folders/personal', component: EnteriesComponent },
   // { path: 'profile', component: ProfileComponent },
   // { path: 'user', component: BoardUserComponent },

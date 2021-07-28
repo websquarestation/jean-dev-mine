@@ -30,8 +30,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  createPlasmID(): void {
-    this.router.navigate(['/create/plasmid']);
+  createEntery(type: String): void {
+    this.router.navigate(['/create/entery'], { queryParams: { type: type } });
   }
 
   localSearch(): void {

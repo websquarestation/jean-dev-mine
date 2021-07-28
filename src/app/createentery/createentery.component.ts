@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { StarRatingComponent } from 'ng-starrating';
 import { TokenStorageService } from './../_services/token-storage.service';
@@ -55,6 +56,7 @@ export class CreateenteryComponent implements OnInit {
     "name": "",
     "value": ""
   };
+  type: String;
   // options sample with default values
   options: DatepickerOptions = {
     calendarClass: 'datepicker-blue',
@@ -66,6 +68,7 @@ export class CreateenteryComponent implements OnInit {
   constructor(private tokenStorage: TokenStorageService,
     private enteriesService: EnteriesService,
     private filtersService: FiltersService,
+    private route: ActivatedRoute
     ) {
     this.createEnteryModel = new CreateEntery();
   }
@@ -97,11 +100,17 @@ export class CreateenteryComponent implements OnInit {
     this.createEnteryModel.status = 'Complete';
     this.createEnteryModel.expressionType = 'DNA';
     this.createEnteryModel.bioSafetyLevel = 1;
+
+    // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
+    this.route.queryParams.subscribe(params => {
+      this.type = params['type'];
+      console.log(this.type);
+    });
   }
 
   onSubmit(form: any): void {
     let formData = form.form.value;
-    this.createEnteryModel.type = 'PLASMID';
+    this.createEnteryModel.type = this.type;
     this.createEnteryModel.creationDate = new Date(this.CreationDate).toISOString();
     console.log(this.createEnteryModel);  
     this.enteriesService.create(this.createEnteryModel)
