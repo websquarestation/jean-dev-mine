@@ -39,10 +39,10 @@
     cursor: pointer;
   }
 
-.mandatory {
-	color:  red;
-	margin-left: 4px;
-}
+  .mandatory {
+	  color:  red;
+	  margin-left: 4px;
+  }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #dadada;

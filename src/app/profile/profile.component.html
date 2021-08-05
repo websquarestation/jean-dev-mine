@@ -16,9 +16,15 @@
   </div>  
   <div class="container">
     <div class="row">
-      <div class="col-12 col-md-4 btn-group">
-        <button #editProfileBtn class="btn btn-outline-primary btn-sm" (click)="editProfile()">Edit Profile </button>
-        <button #changePasswordBtn class="btn btn-outline-primary btn-sm" (click)="changePassword()">Change Password </button>
+      <div class="col-12 col-sm-5 btn-group">
+        <button #editProfileBtn type="button" class="btn btn-outline-primary" (click)="editProfile()">
+          <i class="fa fa-edit"></i>
+          Edit Profile
+        </button>
+        <button #changePasswordBtn class="btn btn-outline-primary" (click)="changePassword()">
+          <i class="fa fa-key"></i>
+          Change Password
+        </button>
       </div>
     </div>
 
@@ -40,11 +46,11 @@
         <div class="form-group row">
           <div class="alert alert-success"
                *ngIf="profileForm.submitted && profileForm.form.valid && this.createdStatus">
-            Entry Created Successfully.
+            Profile Updated Successfully.
           </div>
         </div>
         <div class="form-group row">
-          <label for="firstName" class="col-sm-3 col-form-label">First Name:
+          <label for="firstName" class="col-sm-2 col-form-label">First Name:
                 <span class="mandatory">*</span></label>
           <div class="col-sm-4">
             <input type="text" required="required" placeholder="First Name"
@@ -57,7 +63,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="lastName" class="col-sm-3 col-form-label">Last Name:<span class="mandatory">*</span></label>
+          <label for="lastName" class="col-sm-2 col-form-label">Last Name:<span class="mandatory">*</span></label>
           <div class="col-sm-4">
             <input type="text" required="required" placeholder="Last Name"
                    [class.is-invalid]="lastName.invalid && lastName.touched"
@@ -69,7 +75,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="name" class="col-sm-3 col-form-label">Institution:</label>
+          <label for="name" class="col-sm-2 col-form-label">Institution:</label>
           <div class="col-sm-4">
             <input type="text" placeholder="Institution" class="form-control"
                    name="lastname" [(ngModel)]="profileModel.institution" #institution="ngModel" />
@@ -77,7 +83,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="name" class="col-sm-3 col-form-label">Benchling ID:</label>
+          <label for="name" class="col-sm-2 col-form-label">Benchling ID:</label>
           <div class="col-sm-4">
             <input type="text" placeholder="Benchling ID" class="form-control"
                    name="benchlingId" [(ngModel)]="profileModel.benchlingId" #benchlingId="ngModel" />
@@ -85,32 +91,69 @@
         </div>
 
         <div class="form-group row">
-          <label for="name" class="col-sm-3 col-form-label">About:</label>
+          <label for="name" class="col-sm-2 col-form-label">About:</label>
           <div class="col-sm-4">
             <textarea placeholder="About" class="form-control" name="description"
                       rows="3" [(ngModel)]="profileModel.description"
                       #description="ngModel"></textarea>            
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button  [disabled]="profileForm.form.invalid" type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
     <div class="pass-blck" *ngIf="showChangePassword">
-      <form>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      <form name="changePassForm"
+            (ngSubmit)="changePassForm.form.valid && onChangeSubmit(changePassForm)"
+            *ngIf="!isCFormSubmitted"
+            #changePassForm="ngForm"
+            novalidate>
+
+        <div class="form-group row">
+          <div class="alert alert-danger"
+               role="alert"
+               *ngIf="changePassForm.submitted && changePassForm.form.invalid">
+            Error in submitting fields.
+          </div>
         </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+
+        <div class="form-group row">
+          <div class="alert alert-success"
+               *ngIf="changePassForm.submitted && changePassForm.form.valid && this.changetatus">
+            Password Changed Successfully.
+          </div>
         </div>
-        <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        <div class="form-group row">
+          <label for="firstName" class="col-sm-2 col-form-label">
+            New Password:
+            <span class="mandatory">*</span>
+          </label>
+          <div class="col-sm-4">
+            <input type="password" required="required" placeholder="New Password"
+                   [class.is-invalid]="newPassword.invalid && newPassword.touched"
+                   class="form-control" name="newPassword" [(ngModel)]="profileModel.newPassword"
+                   #newPassword="ngModel" />
+          </div>
+          <!-- single error with a class binding -->
+          <small class="text-danger" [class.d-none]="newPassword.valid || newPassword.untouched">* New Password is required</small>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <div class="form-group row">
+          <label for="lastName" class="col-sm-2 col-form-label">
+            Confirm Password:
+            <span class="mandatory">*</span>
+          </label>
+          <div class="col-sm-4">
+            <input type="password" required="required" placeholder="Confirm Password"
+                   [class.is-invalid]="confirmPassword.invalid && confirmPassword.touched"
+                   class="form-control" name="confirmPassword" [(ngModel)]="profileModel.confirmPassword"
+                   #confirmPassword="ngModel" />
+          </div>
+          <!-- single error with a class binding -->
+          <small class="text-danger" [class.d-none]="confirmPassword.valid || confirmPassword.untouched">* Confirm Password is required</small>
+          <small class="text-danger" *ngIf="changePassForm.submitted && !passwordMatched">Password and Confirm Password must be match.</small>
+        </div>
+
+        <button [disabled]="changePassForm.form.invalid" type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>

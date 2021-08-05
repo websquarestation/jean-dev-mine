@@ -155,7 +155,7 @@ export class CreateenteryComponent implements OnInit {
       },
       err => {
         //console.log("enteries error", err);
-        this.notifyService.showError("Entry error: " + err, this.type + " Entry");
+        this.notifyService.showError("Entry error: " + err.message, this.type + " Entry");
       }
     );
   }

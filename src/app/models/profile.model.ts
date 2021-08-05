@@ -13,4 +13,6 @@ export class Profile {
   userEntryCount?: number;
   visibleEntryCount?: number;
   benchlingId: any;
+  newPassword: any;
+  confirmPassword: any;
 }

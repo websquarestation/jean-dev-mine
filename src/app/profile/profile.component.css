@@ -26,7 +26,16 @@
 
   .btn {
     margin: .5rem 1rem;
-    font-size: 1.25rem;
+    font-size: 0.85rem;
     line-height: 1.5;
     border-radius: .3rem;
+  }
+
+  label {
+    font-weight: 500;
+  }
+
+  .mandatory {
+    color: red;
+    margin-left: 4px;
   }
