@@ -1,477 +1,554 @@
 <div class="container">
-  <div class="row">
-	<div class="col-sm-12 align-self-center">
-	  	<div  class="wrapper formContent">
-	  		<h3>CREATE NEW PLASMID</h3>
-	    <form	    
-	      name="createForm"
-	      (ngSubmit)="createForm.form.valid && onSubmit(createForm)" 
-	      *ngIf="!isFormSubmitted"
-	      #createForm="ngForm"
-	      novalidate
-	    >
-	      <div class="form-group">
-	        <div
-	          class="alert alert-danger"
-	          role="alert"
-	          *ngIf="createForm.submitted && createForm.form.invalid"
-	        >
-	          Error in submitting fields.
-	        </div>
-	      </div>
-
-				<div class="form-group row">
-		    	<div class="alert alert-success" 
-		          *ngIf="createForm.submitted && createForm.form.valid && this.createdStatus">
-		      	Entry Created Successfully.
-		    	</div>
-		    </div>
-
-	      <!-- rating -->
-        <div class="form-group row">
-		        <label for="stars" class="col-sm-2 col-form-label">Star Rating:</label>
-		        <div class="col-sm-10">
-		        	<ngb-rating id="stars" [(rate)]="currentRate"></ngb-rating>
-		      	</div>
-		    </div>
-		      	
-	      <!-- description -->
-	      <div class="form-group row">
-	        <label for="ratingDescription" class="col-sm-2 col-form-label">Rating Description:</label>
-          <div class="col-sm-4">
-	          <textarea placeholder="Rating Description" class="form-control" name="ratingDescription" #ratingDescription="ngModel" rows="3" [(ngModel)]="createEnteryModel.ratingDescription"></textarea>
-          </div>
-        </div>
-
-        <!-- Name -->
-        <div class="form-group row">
-          <label for="name" class="col-sm-2 col-form-label">Name:<span class="mandatory">*</span></label>          
-	       	<div class="col-sm-4">
-	          <input type="text" required="required" placeholder="Name" [class.is-invalid]="name.invalid && name.touched" class="form-control" name="name" [(ngModel)]="createEnteryModel.name" #name="ngModel" />
-          </div>
-          <!-- single error with a class binding -->
-            <small class="text-danger" [class.d-none]="name.valid || name.untouched">* Name is required</small>
-        </div>
-
-        <!-- Alias -->
-        <div class="form-group row">
-	        <label for="alias" class="col-sm-2 col-form-label">Alias:</label>
-	        <div class="col-sm-4">
-            <input type="text" placeholder="Alias" class="form-control" name="alias" [(ngModel)]="createEnteryModel.alias" #alias="ngModel" />
-          </div>
-        </div>
-
-        <!-- Creator -->
-        <div class="form-group row">
-        	<label for="creator" class="col-sm-2 col-form-label">Creator:</label>
-        	<div class="col-sm-4">
-          		<input type="text" placeholder="Creator" class="form-control" name="creator" #creator="ngModel" [(ngModel)]="createEnteryModel.creator" disabled="disabled" />
-          		<input type="text" placeholder="Email" class="form-control" name="creatorEmail" [(ngModel)]="createEnteryModel.creatorEmail" #creatorEmail="ngModel" disabled="disabled" />           
-          </div>
-        </div>
-
-        <!-- Creation Date -->
-        <div class="form-group row">
-	        <label for="creation-date" class="col-sm-2 col-form-label">Creation Date:</label>
-	        <div class="col-sm-4">
-	        	<ngx-datepicker [options]="options" name="creationDate"  [(ngModel)]="CreationDate"></ngx-datepicker>
-          </div>
-        </div>
-        
-        <!-- Circular -->
-        <div class="form-group row">
-          <label for="circular" class="col-sm-2 col-form-label">Circular:</label>
-          <div class="col-sm-4">
-            <input type="checkbox" class="form-check-input form-control" name="circular" [(ngModel)]="createEnteryModel.circular" #circular="ngModel" />
-          </div>
-        </div>
-
-        <!-- verified -->
-        <div class="form-group row">
-        	<label for="verified" class="col-sm-2 col-form-label">Experimentally Verified:</label>
-        	<div class="col-sm-4">
-          	<input type="checkbox" class="form-check-input form-control" name="verified" [(ngModel)]="createEnteryModel.verified" #verified="ngModel" />
-          </div>
-        </div>
-
-        <!-- status -->
-        <div class="form-group row">
-        	<label for="status" class="col-sm-2 col-form-label">Status:<span class="mandatory">*</span></label>
-        	<div class="col-sm-4">
-	        	<select class="form-select" name="status" [(ngModel)]="createEnteryModel.status" #status="ngModel">
-	        		<option value="Complete" selected="selected">Complete</option>	
-	        		<option value="In Progress">In Progress</option>	
-	        		<option value="Abandoned">Abandoned</option>	
-	        		<option value="Planned">Planned</option>	
-	        	</select>
-          </div>
-        </div>
-
-        <!-- BioSafety Level -->
-        <div class="form-group row">
-	        <label for="bioSafetyLevel" class="col-sm-2 col-form-label">BioSafety Level:<span class="mandatory">*</span></label>
-	        <div class="col-sm-4">
-	        	<select class="form-select" name="bioSafetyLevel" [(ngModel)]="createEnteryModel.bioSafetyLevel" #bioSafetyLevel="ngModel">
-	        		<option value="1" selected="selected">Level 1</option>	
-	        		<option value="2">Level 2</option>	
-	        		<option value="-1">Restricted</option>
-	        	</select>
-          </div>
-        </div>
-
-        <!-- Expression Type -->
-        <div class="form-group row">
-	        <label for="bioSafetyLevel" class="col-sm-2 col-form-label">Expression Type:</label>
-	        <div class="col-sm-4">
-	        	<select class="form-select" name="expressionType" [(ngModel)]="createEnteryModel.expressionType" #expressionType="ngModel">
-	        		<option value="DNA" selected="selected">DNA</option>	
-	        		<option value="IVT">IVT</option>	
-	        		<option value="Lenti">Lenti</option>
-	        	</select>
-          </div>
-        </div>
-
-        <!-- source lab -->
-        <div class="form-group row">
-	        <label for="source-lab" class="col-sm-2 col-form-label">Source Lab:</label>
-	        <div class="col-sm-4">
-	        	<ng-select
-	        					bindLabel="name" 
-	        					bindValue="name"
-	        					name="principalInvestigator"
-	        					[(ngModel)]="createEnteryModel.principalInvestigator"
-	        					[items]="labsData"
- 			              [searchable]="isSearchable"
-						   [addTag]="addCustomTag"
-             				[loading]="loading"
-			              placeholder="Source Lab"	              
-			              (search)="fetchFilterData($event, 'sourcelabs')" 
-			              #principalInvestigator="ngModel">
-				    </ng-select>
-          </div>
-        </div>
-
-        <!-- backbone -->
-        <div class="form-group row">
-	        <label for="backbone" class="col-sm-2 col-form-label">Backbone:</label>
-	        <div class="col-sm-4">
-	        	<ng-select
-	        					bindLabel="name" 
-	        					bindValue="name"
-	        					name="backbone"
-	        					[(ngModel)]="createEnteryModel.backbone"
-	        					[items]="backboneData"
- 			              [searchable]="isSearchable"
-						   [addTag]="addCustomTag"
-             				[loading]="loading"
-			              placeholder="Backbone"	              
-			              (search)="fetchFilterData($event, 'backbone')"single="true"
-			              #backbone="ngModel">
-				    </ng-select>
-          </div>
-        </div>
-
-        <!-- Origin of Replication -->
-        <div class="form-group row">
-	        <label for="origin-replication" class="col-sm-2 col-form-label">Origin of Replication:</label>
-	        <div class="col-sm-4">
-	        	<ng-select
-	        					bindLabel="name" 
-	        					bindValue="name"
-	        					name="originOfReplication"
-	        					[(ngModel)]="createEnteryModel.originOfReplication"
-	        					[items]="originreplicationData"
- 			              [searchable]="isSearchable"
-						   [addTag]="addCustomTag"
-             				[loading]="loading"
-			              placeholder="Origin of Replication"             
-			              (search)="fetchFilterData($event, 'originreplication')"single="true"
-			              #originOfReplication="ngModel">
-				    </ng-select>
-          </div>
-        </div>
-
-        <!-- Replicates In -->
-        <div class="form-group row">
-	        <label for="replicates-in" class="col-sm-2 col-form-label">Replicates In:</label>
-          <div class="col-sm-4">
-	        	<ng-select
-	        					bindLabel="name" 
-	        					bindValue="name"
-	        					name="replicatesIn"
-	        					[(ngModel)]="createEnteryModel.replicatesIn"
-	        					[items]="replicatesinData"
- 			              [searchable]="isSearchable"
-             				[loading]="loading"
-							[addTag]="addCustomTag"
-			              placeholder="Replicates In"	              
-			              (search)="fetchFilterData($event, 'replicatesIn')"single="true"
-			              #replicatesIn="ngModel">
-				    </ng-select>
-          </div>
-        </div>
-
-        <!-- Supplier -->
-        <div class="form-group row">
-	        <label for="supplier" class="col-sm-2 col-form-label">Supplier:</label>
-	        <div class="col-sm-4">	        	
-	        	<ng-select
-	        					bindLabel="name" 
-	        					bindValue="name"
-	        					name="supplier"
-	        					[(ngModel)]="createEnteryModel.supplier"
-	        					[items]="supplierData"
- 			              [searchable]="isSearchable"
-						   [addTag]="addCustomTag"
-             				[loading]="loading"
-			              placeholder="Supplier"	              
-			              (search)="fetchFilterData($event, 'supplier')"single="true"
-			              #supplier="ngModel">
-				    </ng-select>
-          </div>
-        </div>
-
-        <!-- Funding Source -->
-        <div class="form-group row">
-	        <label for="fundingSource" class="col-sm-2 col-form-label">Funding Source:</label>
-	        <div class="col-sm-4">
-            <input type="text" placeholder="Funding Source" class="form-control" name="fundingSource" [(ngModel)]="createEnteryModel.fundingSource" #fundingSource="ngModel" />
-          </div>
-        </div>
-
-        <!-- Keywords -->
-        <div class="form-group row">
-	        <label for="keywords" class="col-sm-2 col-form-label">Keywords:</label>
-	        <div class="col-sm-4">
-            <input type="text" placeholder="Keywords" class="form-control" name="keywords" [(ngModel)]="createEnteryModel.keywords" #keywords="ngModel" />
-          </div>
-        </div>
-
-        <!-- Benchling Link -->
-        <div class="form-group row">
-	        <label for="benchlingLink" class="col-sm-2 col-form-label">Benchling Link:</label>
-	        <div class="col-sm-4">
-            <input type="text" placeholder="Benchling Link" class="form-control" name="benchlingLink" [(ngModel)]="createEnteryModel.benchlingLink" #benchlingLink="ngModel" />
-          </div>
-        </div>
-
-        <!-- Selection Markers -->
-        <div class="form-group row">
-	        <label for="selectionMarkers" class="col-sm-2 col-form-label">Selection Markers:<span class="mandatory">*</span></label>
-	        <div class="col-sm-4">
-	        	<ng-container *ngFor="let sminp of seletionmakersInp; let i1 = index">
-	        		<div>
-	            	<input type="text" placeholder="Selection Markers" class="form-control" [class.is-invalid]="selectionMarkers.invalid && selectionMarkers.touched" name="selectionMarkers[]" (blur)="addToModel($event, 'selectionmarkers')"/>
-	            	<span class="jl-minus-right" *ngIf="i1 >= 1" (click)="removeMore(i1, 'selectionmarkers')"><i class="fas fa-minus"></i></span>
-            	</div>
-          	</ng-container>          	
-          		<span class="jl-plus-right" (click)="addMore('selectionmarkers')">
-          			<i class="fas fa-plus"></i>
-          		</span>
-
-          <!-- single error with a class binding -->
-            <small class="text-danger" [class.d-none]="!selectionMarkers.valid || selectionMarkers.untouched">* Selection Markers is required</small>
-          </div>
-        </div>
-
-        <!-- promoter -->
-        <div class="form-group row">
-	        <label for="promoter" class="col-sm-2 col-form-label">
-	        Promoters:</label>
-	        <div class="col-sm-4">
-	        	<ng-container *ngFor="let pinp of promoterInp; let i2 = index">
-	        		<div>
-	            	<input type="text" placeholder="promoter" class="form-control" name="promoter[]" (blur)="addToModel($event, 'promoter')"/>
-	            	<span class="jl-minus-right" *ngIf="i2 >= 1" (click)="removeMore(i2, 'promoter')"><i class="fas fa-minus"></i></span>
-            	</div>
-          	</ng-container>          	
-          		<span class="jl-plus-right" (click)="addMore('promoter')">
-          			<i class="fas fa-plus"></i>
-          		</span>
-          </div>
-        </div>
-
-        <!-- Disease -->
-        <div class="form-group row">
-	        <label for="disease" class="col-sm-2 col-form-label">Disease:</label>
-	        <div class="col-sm-4">
-	        	<ng-container *ngFor="let dinp of diseasesInp; let i = index">
-	        		<div>
-	            	<input type="text" placeholder="Disease" class="form-control" name="disease[]" (blur)="addToModel($event, 'disease')"/>
-	            	<span class="jl-minus-right" *ngIf="i >= 1" (click)="removeMore(i, 'disease')"><i class="fas fa-minus"></i></span>
-            	</div>
-          	</ng-container>          	
-          		<span class="jl-plus-right" (click)="addMore('disease')">
-          			<i class="fas fa-plus"></i>
-          		</span>
-          </div>
-        </div>
-
-        <!-- HLA -->
-        <div class="form-group row">
-	        <label for="hla" class="col-sm-2 col-form-label">HLA:</label>
-	        <div class="col-sm-4">
-	        	<ng-container *ngFor="let hlnp of hlaInp; let i3 = index">
-	        		<div>
-	            	<input type="text" placeholder="HLA" class="form-control" name="hla[]" (blur)="addToModel($event, 'hla')"/>
-	            	<span class="jl-minus-right" *ngIf="i3 >= 1" (click)="removeMore(i3, 'hla')"><i class="fas fa-minus"></i></span>
-            	</div>
-          	</ng-container>          	
-          		<span class="jl-plus-right" (click)="addMore('hla')">
-          			<i class="fas fa-plus"></i>
-          		</span>
-          </div>
-        </div>
-
-        <!-- epitope -->
-        <div class="form-group row">
-	        <label for="epitope" class="col-sm-2 col-form-label">Epitope</label>
-	        <div class="col-sm-4">
-	        	<ng-container *ngFor="let epip of epitopeInp; let i4 = index">
-	        		<div>
-						<input type="text" placeholder="Epitope" class="form-control" name="epitope[]" (blur)="addToModel($event, 'epitope')"/>
-						<span class="jl-minus-right" *ngIf="i4 >= 1" (click)="removeMore(i4, 'epitope')"><i class="fas fa-minus"></i></span>
-            		</div>
-          		</ng-container>          	
-          		<span class="jl-plus-right" (click)="addMore('epitope')">
-          			<i class="fas fa-plus"></i>
-          		</span>
-          </div>
-        </div>
-
-        <!-- domain -->
-        <div class="form-group row">
-	        <label for="domain" class="col-sm-2 col-form-label">Domains</label>
-	        <div class="col-sm-4">
-	        	<ng-container *ngFor="let domip of domainInp; let i5 = index">
-	        		<div>
-	            	<input type="text" placeholder="domain" class="form-control" name="domain[]" (blur)="addToModel($event, 'domain')"/>
-	            	<span class="jl-minus-right" *ngIf="i5 >= 1" (click)="removeMore(i5, 'domain')"><i class="fas fa-minus"></i></span>
-            	</div>
-          	</ng-container>          	
-          		<span class="jl-plus-right" (click)="addMore('domain')">
-          			<i class="fas fa-plus"></i>
-          		</span>
-          </div>
-        </div>
-
-        <!-- Antigen -->
-        <div class="form-group row">
-	        <label for="antigen" class="col-sm-2 col-form-label">Antigen</label>
-	        <div class="col-sm-4">
-	        	<ng-container *ngFor="let enjip of antigenInp; let i6 = index">
-	        		<div>
-	            	<input type="text" placeholder="antigen" class="form-control" name="antigen[]" (blur)="addToModel($event, 'antigen')"/>
-	            	<span class="jl-minus-right" *ngIf="i6 >= 1" (click)="removeMore(i6, 'antigen')"><i class="fas fa-minus"></i></span>
-            	</div>
-          	</ng-container>          	
-          		<span class="jl-plus-right" (click)="addMore('antigen')">
-          			<i class="fas fa-plus"></i>
-          		</span>
-          </div>
-        </div>
-
-        <!-- External URL -->
-        <div class="form-group row">
-	        <label for="links" class="col-sm-2 col-form-label">External URL</label>
-	        <div class="col-sm-4">
-	        	<ng-container *ngFor="let lip of linksInp; let i7 = index">
-	        		<div>
-	            		<input type="text" placeholder="links " class="form-control" name="links[]" (blur)="addToModel($event, 'links')"/>
-	            		<span class="jl-minus-right" *ngIf="i7 >= 1" (click)="removeMore(i7, 'links')"><i class="fas fa-minus"></i></span>
-            		</div>
-          		</ng-container>          	
-          		<span class="jl-plus-right" (click)="addMore('links')">
-          			<i class="fas fa-plus"></i>
-          		</span>
-          </div>
-        </div>
-
-        <!-- summary -->
-        <div class="form-group row">
-	        <label for="summary" class="col-sm-2 col-form-label">Summary<span class="mandatory">*</span></label>
-	        <div class="col-sm-4">
-	        	<textarea placeholder="Summary" class="form-control" name="shortDescription" rows="3" [(ngModel)]="createEnteryModel.shortDescription" #shortDescription="ngModel"></textarea>
-          </div>
-        </div>
-
-        <!-- references -->
-        <div class="form-group row">
-	        <label for="references" class="col-sm-2 col-form-label">References</label>
-	        <div class="col-sm-4">
-	        	<textarea placeholder="References" class="form-control" name="references" rows="3" [(ngModel)]="createEnteryModel.references" #references="ngModel"></textarea>
-          </div>
-        </div>
-
-        <!-- Intellectual Property -->
-        <div class="form-group row">
-	        <label for="intellectualProperty" class="col-sm-2 col-form-label">Intellectual Property<span class="mandatory">*</span></label>
-	        <div class="col-sm-4">
-	        	<textarea required="required" placeholder="Intellectual Property" [class.is-invalid]="intellectualProperty.invalid && intellectualProperty.touched" class="form-control" name="intellectualProperty" rows="3" [(ngModel)]="createEnteryModel.intellectualProperty" #intellectualProperty="ngModel"></textarea>
-          </div>
-          <!-- single error with a class binding -->
-            <small class="text-danger" [class.d-none]="intellectualProperty.valid || intellectualProperty.untouched">* Intellectual Property is required</small>
-        </div>
-
-				<!-- Label1 -->
-        <div class="form-group row">
-	        <div class="col-sm-8">
-	        	<p>T7 to EcoRI Length</p>
-	        	<p>T7 to XbaI Length</p>
-	        </div>
-	        <div class="col-sm-8">
-	        	<ng-container *ngFor="let prp of this.createEnteryModel.parameters; let ip = index">
-	        		<div class="row">
-	        			<div class="col-sm-3">
-	            		<input type="text" placeholder="Label" [(ngModel)]="prp.name" class="form-control" name="pname{{ip}}"/>
-	            	</div>
-	            	<div class="col-sm-3">
-	            		<input type="text" placeholder="Value" [(ngModel)]="prp.value"  class="form-control" name="pvalue{{ip}}"/>
-	            	</div>
-	            	<div class="col-sm-2">
-	            		<span (click)="removeParameters(ip)"><i class="fas fa-minus"></i></span>
-	            	</div>
-            	</div>
-          	</ng-container>  
-          </div>
-	        <div class="sm-6">
-	        	<span (click)="addMoreParameters()">
-          			<i class="fas fa-plus"></i>
-          		</span>          		
-          </div>		
-        </div>
-
-        <!-- Attachments -->
-        <div class="form-group row">
-	        <div class="col-sm-2">
-	        	<label class="col-sm-2 col-form-label">Attachments</label>
-	        </div>
-			<div class="col-sm-2">
-	        	<span (click)="addAttachment()">
-          			<i class="fas fa-plus"></i>
-          		</span>          		
-          </div>
-		  	<ng-container *ngFor="let up of addUploadAttachments; let iu = index">
-				<div class="md-4">
-					<p><input type="file" class="file btn btn-primary"
-						(change)="handleFileInput($any($event.target).files)" /></p>
+	<div class="row">
+		<div class="col-sm-12 align-self-center">
+			<div class="top">
+				<div class="back-btn">
+					<a (click)="gotoBack()"><img src="assets/img/icon-back.png" width="40" /></a>
 				</div>
-			</ng-container>
-        </div>        
-
-        <!-- Notes -->
-        <div class="form-group row">
-	        <label for="longDescription" class="col-sm-2 col-form-label">Notes</label>
-	        <div class="col-sm-4">
-	        	<textarea placeholder="longDescription" class="form-control" name="longDescription" rows="3" [(ngModel)]="createEnteryModel.longDescription" #longDescription="ngModel"></textarea>
-          </div>
-        </div>
-
-        <!-- form level validation to enable/disable button -->
-        <button [disabled]="createForm.form.invalid" type="submit"
-            class="btn btn-primary">Submit</button>      
-	    </form>
-	  </div>
+				<div class="heading">
+					<div class="main"><span class="type">CREATE NEW {{type.toUpperCase()}}</span></div>
+					<div class="sub">
+						<span class="dt">{{CreationDate | date:'medium'}}</span>
+						&nbsp;|&nbsp;<span class="creator"><a>{{createEnteryModel.creator}}</a></span>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
+	<div class="row">
+		<div class="col-sm-12 align-self-center">
+			<div class="wrapper formContent">
+				<form name="createForm"
+							(ngSubmit)="createForm.form.valid && onSubmit(createForm)"
+							*ngIf="!isFormSubmitted"
+							#createForm="ngForm"
+							novalidate>
+					<div class="form-group">
+						<div class="alert alert-danger"
+								 role="alert"
+								 *ngIf="createForm.submitted && createForm.form.invalid">
+							Error in submitting fields.
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="alert alert-success"
+								 *ngIf="createForm.submitted && createForm.form.valid && this.createdStatus">
+							Entry Created Successfully.
+						</div>
+					</div>
+
+					<!-- rating -->
+					<div class="form-group row">
+						<label for="stars" class="col-sm-3 col-form-label">Star Rating:</label>
+						<div class="col-sm-10">
+							<ngb-rating id="stars" [(rate)]="currentRate" [max]="5"></ngb-rating>
+						</div>
+					</div>
+
+					<!-- description -->
+					<div class="form-group row">
+						<label for="ratingDescription" class="col-sm-3 col-form-label">Rating Description:</label>
+						<div class="col-sm-4">
+							<textarea placeholder="Rating Description" class="form-control" name="ratingDescription" #ratingDescription="ngModel" rows="3" [(ngModel)]="createEnteryModel.ratingDescription"></textarea>
+						</div>
+					</div>
+
+					<!-- Name -->
+					<div class="form-group row">
+						<label for="name" class="col-sm-3 col-form-label">Name:<span class="mandatory">*</span></label>
+						<div class="col-sm-4">
+							<input type="text" required="required" placeholder="Name" [class.is-invalid]="name.invalid && name.touched" class="form-control" name="name" [(ngModel)]="createEnteryModel.name" #name="ngModel" />
+						</div>
+						<!-- single error with a class binding -->
+						<small class="text-danger" [class.d-none]="name.valid || name.untouched">* Name is required</small>
+					</div>
+
+					<!-- Alias -->
+					<div class="form-group row">
+						<label for="alias" class="col-sm-3 col-form-label">Alias:</label>
+						<div class="col-sm-4">
+							<input type="text" placeholder="Alias" class="form-control" name="alias" [(ngModel)]="createEnteryModel.alias" #alias="ngModel" />
+						</div>
+					</div>
+
+					<!-- Host -->
+					<div class="form-group row" *ngIf="isHost">
+						<label for="alias" class="col-sm-3 col-form-label">Host:</label>
+						<div class="col-sm-4">
+							<input type="text" placeholder="Host" class="form-control" name="host" [(ngModel)]="createEnteryModel.host" #alias="ngModel" />
+						</div>
+					</div>
+
+					<!-- Creator -->
+					<div class="form-group row">
+						<label for="creator" class="col-sm-3 col-form-label">Creator:</label>
+						<div class="col-sm-3">
+							<input type="text" placeholder="Creator" class="form-control" name="creator" #creator="ngModel" [(ngModel)]="createEnteryModel.creator" disabled="disabled" />
+						</div>
+						<div class="col-sm-3">
+							<input type="text" placeholder="Email" class="form-control" name="creatorEmail" [(ngModel)]="createEnteryModel.creatorEmail" #creatorEmail="ngModel" disabled="disabled" />
+						</div>
+					</div>
+
+					<!-- Creation Date -->
+					<div class="form-group row">
+						<label for="creation-date" class="col-sm-3 col-form-label">Creation Date:</label>
+						<div class="col-sm-4">
+							<ngx-datepicker [options]="options" name="creationDate" [(ngModel)]="CreationDate"></ngx-datepicker>
+							<i class="fas fa-calendar cal" aria-hidden="true"></i>
+						</div>
+					</div>
+
+					<!-- Circular -->
+					<div class="form-group row" *ngIf="isCircular">
+						<label for="circular" class="col-sm-3 col-form-label">Circular:</label>
+						<div class="col-sm-3">
+							<input type="checkbox" class="form-check-input form-control" name="circular" [(ngModel)]="createEnteryModel.circular" #circular="ngModel" />
+						</div>
+					</div>
+
+					<!-- verified -->
+					<div class="form-group row">
+						<label for="verified" class="col-sm-3 col-form-label">Experimentally Verified:</label>
+						<div class="col-sm-4">
+							<input type="checkbox" class="form-check-input form-control" name="verified" [(ngModel)]="createEnteryModel.verified" #verified="ngModel" />
+						</div>
+					</div>
+
+					<!-- status -->
+					<div class="form-group row">
+						<label for="status" class="col-sm-3 col-form-label">Status:<span class="mandatory">*</span></label>
+						<div class="col-sm-4">
+							<select class="form-select" name="status" [(ngModel)]="createEnteryModel.status" #status="ngModel">
+								<option value="Complete" selected="selected">Complete</option>
+								<option value="In Progress">In Progress</option>
+								<option value="Abandoned">Abandoned</option>
+								<option value="Planned">Planned</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- BioSafety Level -->
+					<div class="form-group row">
+						<label for="bioSafetyLevel" class="col-sm-3 col-form-label">BioSafety Level:<span class="mandatory">*</span></label>
+						<div class="col-sm-4">
+							<select class="form-select" name="bioSafetyLevel" [(ngModel)]="createEnteryModel.bioSafetyLevel" #bioSafetyLevel="ngModel">
+								<option value="1" selected="selected">Level 1</option>
+								<option value="2">Level 2</option>
+								<option value="-1">Restricted</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- Expression Type -->
+					<div class="form-group row">
+						<label for="bioSafetyLevel" class="col-sm-3 col-form-label">Expression Type:</label>
+						<div class="col-sm-4">
+							<select class="form-select" name="expressionType" [(ngModel)]="createEnteryModel.expressionType" #expressionType="ngModel">
+								<option value="DNA" selected="selected">DNA</option>
+								<option value="IVT">IVT</option>
+								<option value="Lenti">Lenti</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- source lab -->
+					<div class="form-group row">
+						<label for="source-lab" class="col-sm-3 col-form-label">Source Lab:</label>
+						<div class="col-sm-4">
+							<ng-select bindLabel="name"
+												 bindValue="name"
+												 name="principalInvestigator"
+												 [(ngModel)]="createEnteryModel.principalInvestigator"
+												 [items]="labsData"
+												 [searchable]="isSearchable"
+												 [addTag]="addCustomTag"
+												 [loading]="loading"
+												 placeholder="Source Lab"
+												 (search)="fetchFilterData($event, 'sourcelabs')"
+												 #principalInvestigator="ngModel">
+							</ng-select>
+						</div>
+					</div>
+
+					<!-- backbone -->
+					<div class="form-group row" *ngIf="isBackbone">
+						<label for="backbone" class="col-sm-3 col-form-label">Backbone:</label>
+						<div class="col-sm-4">
+							<ng-select bindLabel="name"
+												 bindValue="name"
+												 name="backbone"
+												 [(ngModel)]="createEnteryModel.backbone"
+												 [items]="backboneData"
+												 [searchable]="isSearchable"
+												 [addTag]="addCustomTag"
+												 [loading]="loading"
+												 placeholder="Backbone"
+												 (search)="fetchFilterData($event, 'backbone')" single="true"
+												 #backbone="ngModel">
+							</ng-select>
+						</div>
+					</div>
+
+					<!-- Origin of Replication -->
+					<div class="form-group row" *ngIf="isOriginReplication">
+						<label for="origin-replication" class="col-sm-3 col-form-label">Origin of Replication:</label>
+						<div class="col-sm-4">
+							<ng-select bindLabel="name"
+												 bindValue="name"
+												 name="originOfReplication"
+												 [(ngModel)]="createEnteryModel.originOfReplication"
+												 [items]="originreplicationData"
+												 [searchable]="isSearchable"
+												 [addTag]="addCustomTag"
+												 [loading]="loading"
+												 placeholder="Origin of Replication"
+												 (search)="fetchFilterData($event, 'originreplication')" single="true"
+												 #originOfReplication="ngModel">
+							</ng-select>
+						</div>
+					</div>
+
+					<!-- Replicates In -->
+					<div class="form-group row" *ngIf="isReplicatesIn">
+						<label for="replicates-in" class="col-sm-3 col-form-label">Replicates In:</label>
+						<div class="col-sm-4">
+							<ng-select bindLabel="name"
+												 bindValue="name"
+												 name="replicatesIn"
+												 [(ngModel)]="createEnteryModel.replicatesIn"
+												 [items]="replicatesinData"
+												 [searchable]="isSearchable"
+												 [loading]="loading"
+												 [addTag]="addCustomTag"
+												 placeholder="Replicates In"
+												 (search)="fetchFilterData($event, 'replicatesIn')" single="true"
+												 #replicatesIn="ngModel">
+							</ng-select>
+						</div>
+					</div>
+
+					<!-- Supplier -->
+					<div class="form-group row">
+						<label for="supplier" class="col-sm-3 col-form-label">Supplier:</label>
+						<div class="col-sm-4">
+							<ng-select bindLabel="name"
+												 bindValue="name"
+												 name="supplier"
+												 [(ngModel)]="createEnteryModel.supplier"
+												 [items]="supplierData"
+												 [searchable]="isSearchable"
+												 [addTag]="addCustomTag"
+												 [loading]="loading"
+												 placeholder="Supplier"
+												 (search)="fetchFilterData($event, 'supplier')" single="true"
+												 #supplier="ngModel">
+							</ng-select>
+						</div>
+					</div>
+
+					<!-- Funding Source -->
+					<div class="form-group row">
+						<label for="fundingSource" class="col-sm-3 col-form-label">Funding Source:</label>
+						<div class="col-sm-4">
+							<input type="text" placeholder="Funding Source" class="form-control" name="fundingSource" [(ngModel)]="createEnteryModel.fundingSource" #fundingSource="ngModel" />
+						</div>
+					</div>
+
+					<!-- Keywords -->
+					<div class="form-group row">
+						<label for="keywords" class="col-sm-3 col-form-label">Keywords:</label>
+						<div class="col-sm-4">
+							<input type="text" placeholder="Keywords" class="form-control" name="keywords" [(ngModel)]="createEnteryModel.keywords" #keywords="ngModel" />
+						</div>
+					</div>
+
+					<!-- Benchling Link -->
+					<div class="form-group row">
+						<label for="benchlingLink" class="col-sm-3 col-form-label">Benchling Link:</label>
+						<div class="col-sm-4">
+							<input type="text" placeholder="Benchling Link" class="form-control" name="benchlingLink" [(ngModel)]="createEnteryModel.benchlingLink" #benchlingLink="ngModel" />
+						</div>
+					</div>
+
+					<!-- Selection Markers -->
+					<div class="form-group row">
+						<label for="selectionMarkers" class="col-sm-3 col-form-label">Selection Markers:<span class="mandatory">*</span></label>
+						<div class="col-sm-4">
+							<ng-container *ngFor="let sminp of seletionmakersInp; let i1 = index">
+								<div>
+									<input type="text" placeholder="Selection Markers" class="form-control" [class.is-invalid]="selectionMarkers.invalid && selectionMarkers.touched" name="selectionMarkers[]" (blur)="addToModel($event, 'selectionmarkers')" />
+									<span class="jl-minus-right" *ngIf="i1 >= 1" (click)="removeMore(i1, 'selectionmarkers')">
+										<i class="fas fa-minus-circle"></i>
+									</span>
+								</div>
+							</ng-container>
+							<span class="jl-plus-right" (click)="addMore('selectionmarkers')">
+								<i class="fas fa-plus green opacity_hover"></i>
+							</span>
+
+							<!-- single error with a class binding -->
+							<small class="text-danger" [class.d-none]="!selectionMarkers.valid || selectionMarkers.untouched">* Selection Markers is required</small>
+						</div>
+					</div>
+
+					<!-- promoter -->
+					<div class="form-group row">
+						<label for="promoter" class="col-sm-3 col-form-label">
+							Promoters:
+						</label>
+						<div class="col-sm-4">
+							<ng-container *ngFor="let pinp of promoterInp; let i2 = index">
+								<div>
+									<input type="text" placeholder="promoter" class="form-control" name="promoter[]" (blur)="addToModel($event, 'promoter')" />
+									<span class="jl-minus-right" *ngIf="i2 >= 1" (click)="removeMore(i2, 'promoter')">
+										<i class="fas fa-minus-circle"></i>
+									</span>
+								</div>
+							</ng-container>
+							<span class="jl-plus-right" (click)="addMore('promoter')">
+								<i class="fas fa-plus green opacity_hover"></i>
+							</span>
+						</div>
+					</div>
+
+					<!-- Disease -->
+					<div class="form-group row">
+						<label for="disease" class="col-sm-3 col-form-label">Disease:</label>
+						<div class="col-sm-4">
+							<ng-container *ngFor="let dinp of diseasesInp; let i = index">
+								<div>
+									<input type="text" placeholder="Disease" class="form-control" name="disease[]" (blur)="addToModel($event, 'disease')" />
+									<span class="jl-minus-right" *ngIf="i >= 1" (click)="removeMore(i, 'disease')">
+										<i class="fas fa-minus-circle"></i>
+									</span>
+								</div>
+							</ng-container>
+							<span class="jl-plus-right" (click)="addMore('disease')">
+								<i class="fas fa-plus green opacity_hover"></i>
+							</span>
+						</div>
+					</div>
+
+					<!-- HLA -->
+					<div class="form-group row">
+						<label for="hla" class="col-sm-3 col-form-label">HLA:</label>
+						<div class="col-sm-4">
+							<ng-container *ngFor="let hlnp of hlaInp; let i3 = index">
+								<div>
+									<input type="text" placeholder="HLA" class="form-control" name="hla[]" (blur)="addToModel($event, 'hla')" />
+									<span class="jl-minus-right" *ngIf="i3 >= 1" (click)="removeMore(i3, 'hla')">
+										<i class="fas fa-minus-circle"></i>
+									</span>
+								</div>
+							</ng-container>
+							<span class="jl-plus-right" (click)="addMore('hla')">
+								<i class="fas fa-plus green opacity_hover"></i>
+							</span>
+						</div>
+					</div>
+
+					<!-- epitope -->
+					<div class="form-group row">
+						<label for="epitope" class="col-sm-3 col-form-label">Epitope</label>
+						<div class="col-sm-4">
+							<ng-container *ngFor="let epip of epitopeInp; let i4 = index">
+								<div>
+									<input type="text" placeholder="Epitope" class="form-control" name="epitope[]" (blur)="addToModel($event, 'epitope')" />
+									<span class="jl-minus-right" *ngIf="i4 >= 1" (click)="removeMore(i4, 'epitope')">
+										<i class="fas fa-minus-circle"></i>
+									</span>
+								</div>
+							</ng-container>
+							<span class="jl-plus-right" (click)="addMore('epitope')">
+								<i class="fas fa-plus green opacity_hover"></i>
+							</span>
+						</div>
+					</div>
+
+					<!-- domain -->
+					<div class="form-group row">
+						<label for="domain" class="col-sm-3 col-form-label">Domains</label>
+						<div class="col-sm-4">
+							<ng-container *ngFor="let domip of domainInp; let i5 = index">
+								<div>
+									<input type="text" placeholder="domain" class="form-control" name="domain[]" (blur)="addToModel($event, 'domain')" />
+									<span class="jl-minus-right" *ngIf="i5 >= 1" (click)="removeMore(i5, 'domain')">
+										<i class="fas fa-minus-circle"></i>
+									</span>
+								</div>
+							</ng-container>
+							<span class="jl-plus-right" (click)="addMore('domain')">
+								<i class="fas fa-plus green opacity_hover"></i>
+							</span>
+						</div>
+					</div>
+
+					<!-- Antigen -->
+					<div class="form-group row">
+						<label for="antigen" class="col-sm-3 col-form-label">Antigen</label>
+						<div class="col-sm-4">
+							<ng-container *ngFor="let enjip of antigenInp; let i6 = index">
+								<div>
+									<input type="text" placeholder="antigen" class="form-control" name="antigen[]" (blur)="addToModel($event, 'antigen')" />
+									<span class="jl-minus-right" *ngIf="i6 >= 1" (click)="removeMore(i6, 'antigen')">
+										<i class="fas fa-minus-circle"></i>
+									</span>
+								</div>
+							</ng-container>
+							<span class="jl-plus-right" (click)="addMore('antigen')">
+								<i class="fa fa-plus green opacity_hover"></i>
+							</span>
+						</div>
+					</div>
+
+					<!-- External URL -->
+					<div class="form-group row">
+						<label for="links" class="col-sm-3 col-form-label">External URL</label>
+						<div class="col-sm-4">
+							<ng-container *ngFor="let lip of linksInp; let i7 = index">
+								<div>
+									<input type="text" placeholder="links " class="form-control" name="links[]" (blur)="addToModel($event, 'links')" />
+									<span class="jl-minus-right" *ngIf="i7 >= 1" (click)="removeMore(i7, 'links')">
+										<i class="fa fa-minus-circle delete_icon"></i>
+									</span>
+								</div>
+							</ng-container>
+							<span class="jl-plus-right" (click)="addMore('links')">
+								<i class="fas fa-plus green opacity_hover"></i>
+							</span>
+						</div>
+					</div>
+
+					<!-- genotype/phenotype -->
+					<div class="form-group row" *ngIf="isGenotype">
+						<label for="summary" class="col-sm-3 col-form-label">Genotype/Phenotype</label>
+						<div class="col-sm-4">
+							<textarea placeholder="Genotype/Phenotype" class="form-control" name="genotypePhenotype" rows="3" [(ngModel)]="createEnteryModel.genotypePhenotype" #shortDescription="ngModel"></textarea>
+						</div>
+					</div>
+
+					<!-- summary -->
+					<div class="form-group row">
+						<label for="summary" class="col-sm-3 col-form-label">Summary<span class="mandatory">*</span></label>
+						<div class="col-sm-4">
+							<textarea placeholder="Summary" class="form-control" name="shortDescription" rows="3" [(ngModel)]="createEnteryModel.shortDescription" #shortDescription="ngModel"></textarea>
+						</div>
+					</div>
+
+					<!-- references -->
+					<div class="form-group row">
+						<label for="references" class="col-sm-3 col-form-label">References</label>
+						<div class="col-sm-4">
+							<textarea placeholder="References" class="form-control" name="references" rows="3" [(ngModel)]="createEnteryModel.references" #references="ngModel"></textarea>
+						</div>
+					</div>
+
+					<!-- Intellectual Property -->
+					<div class="form-group row">
+						<label for="intellectualProperty" class="col-sm-3 col-form-label">Intellectual Property</label>
+						<div class="col-sm-4">
+							<textarea placeholder="Intellectual Property" [class.is-invalid]="intellectualProperty.invalid && intellectualProperty.touched" class="form-control" name="intellectualProperty" rows="3" [(ngModel)]="createEnteryModel.intellectualProperty" #intellectualProperty="ngModel"></textarea>
+						</div>
+						<!-- single error with a class binding -->
+						<small class="text-danger" [class.d-none]="intellectualProperty.valid || intellectualProperty.untouched">* Intellectual Property is required</small>
+					</div>
+
+					<!-- Label1 -->
+					<div class="form-group row">
+						<div class="col-sm-8">
+							<p>T7 to EcoRI Length</p>
+							<p>T7 to XbaI Length</p>
+						</div>
+						<div class="col-sm-8">
+							<ng-container *ngFor="let prp of this.createEnteryModel.parameters; let ip = index">
+								<div class="row">
+									<div class="col-sm-3">
+										<input type="text" placeholder="Label" [(ngModel)]="prp.name" class="form-control" name="pname{{ip}}" />
+									</div>
+									<div class="col-sm-3">
+										<input type="text" placeholder="Value" [(ngModel)]="prp.value" class="form-control" name="pvalue{{ip}}" />
+									</div>
+									<div class="col-sm-2">
+										<span (click)="removeParameters(ip)"><i class="fas fa-minus"></i></span>
+									</div>
+								</div>
+							</ng-container>
+						</div>
+						<div class="sm-6">
+							<span (click)="addMoreParameters()">
+								<i class="fa fa-plus-circle font-awesome edit_icon pull-right"></i>
+							</span>
+						</div>
+					</div>
+
+					<!-- Attachments -->
+					<div class="form-group row">
+						<div class="col-sm-3">
+							<label class="col-form-label attachments-labels">
+								<i class="fa fa-paperclip font-90em"></i>
+								Attachments
+							</label>
+							<span (click)="addAttachment()">
+								<i class="fa fa-plus-circle font-awesome edit_icon pull-right"></i>
+							</span>
+						</div>
+						<div class="col-sm-2">
+						</div>
+						<ng-container *ngFor="let up of addUploadAttachments; let iu = index">
+							<div class="md-4">
+								<p>
+									<input type="file" class="file btn btn-primary"
+												 (change)="handleFileInput($any($event.target).files)" />
+								</p>
+							</div>
+						</ng-container>
+					</div>
+
+					<!-- Sequence -->
+					<div class="form-group row">
+						<div class="col-md-12">
+							<div class=" attachments-labels">
+							<label class="col-form-label">
+								<i class="fa fa-paperclip font-90em"></i>
+								SEQUENCE
+							</label>
+						</div>						
+						<div class="alert alert-info info-alert">
+							<i class="fa fa-info"></i>
+							Supported file formats are Genbank, Fasta and SBOL
+						</div>
+						<div class="">
+							<input type="file" (change)="uploadSeq($event)">
+							<div class="progress" *ngIf="seqFiledata">
+								<div class="progress-bar progress-bar-striped bg-danger"
+										 attr.aria-valuenow="{{ progress }}"
+										 aria-valuemin="0"
+										 aria-valuemax="100"
+										 [ngStyle]="{ width: progress + '%' }">
+									{{ progress }}%
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+						<!-- Notes -->
+						<div class="form-group row">
+							<label for="longDescription" class="col-sm-3 col-form-label">Notes</label>
+							<div class="col-sm-4">
+								<textarea placeholder="longDescription" class="form-control" name="longDescription" rows="3" [(ngModel)]="createEnteryModel.longDescription" #longDescription="ngModel"></textarea>
+							</div>
+						</div>
+
+						<!-- form level validation to enable/disable button -->
+						<button [disabled]="createForm.form.invalid" type="submit"
+										class="btn btn-primary">
+							Submit
+						</button>
+</form>
+			</div>
+		</div>
+	</div>
 </div>

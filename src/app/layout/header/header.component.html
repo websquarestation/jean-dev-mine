@@ -9,8 +9,8 @@
 	<form
 	class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 		<div class="input-group">
-			<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-			aria-label="Search" aria-describedby="basic-addon2">
+			<input type="text" class="form-control bg-light border-0 small" name="searchKeyword" [(ngModel)]="searchKeyword" placeholder="Search for..."
+			aria-label="Search" aria-describedby="basic-addon2" (keyup.enter)="localSearch()">
 			<div class="input-group-append">
 				<button (click)="localSearch()" class="btn btn-primary" type="button">
 					<i class="fas fa-search fa-sm"></i>
@@ -56,7 +56,7 @@
 		<!-- Dropdown - User Information -->
 		<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" *dropdownMenu
 		aria-labelledby="userDropdown">
-			<a class="dropdown-item" href="#">
+			<a class="dropdown-item" (click)="goToProfile()">
 				<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
 				Profile
 			</a>
@@ -74,10 +74,12 @@
 <div class="row">
 	<div class="col-md-4">
 		<ul>
-			<li dropdown class="nav-item no-arrow dropdown d-inline-block">
-				<a class="nav-link dropdown-toggle" id="entryDropdown"  role="button" dropdownToggle>
-				<button class="btn btn-outline-primary">Create Entry</button>
-				</a>
+			<li dropdown class="nav-item dropdown d-inline-block">
+				<span class="btn btn-success dropdown-toggle" id="entryDropdown" type="button" dropdownToggle
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Create Entry
+				</span>
+				
 				<!-- Dropdown - User Information -->
 				<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" *dropdownMenu
 				aria-labelledby="entryDropdown">

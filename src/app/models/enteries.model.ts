@@ -7,4 +7,9 @@ export class Enteries {
   name?: string;
   status?: string;
   creationTime?: string;
+  entryInfo?: any;
+  maxScore?: any;
+  progress?: any;
+  color?: string;
+  score?: any;
 }

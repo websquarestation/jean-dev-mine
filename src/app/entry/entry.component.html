@@ -1,0 +1,197 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 align-self-center">
+      <div class="top">
+        <div class="back-btn">
+          <a (click)="gotoBack()"><img src="assets/img/icon-back.png" width="40" /></a>
+        </div>
+        <div class="heading">
+          <div class="main"><span class="type">{{entry.type}}</span>&nbsp;{{entry.name}}</div>
+          <div class="sub">
+            <span class="dt">{{entry.modificationTime | date:'medium'}}</span>
+            &nbsp;|&nbsp;<span class="creator"><a>{{entry.creator}}</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="detail-form">
+    <!-- rating -->
+    <div class="row">
+      <label for="stars" class="col-sm-2">Star Rating:</label>
+      <div class="col-sm-10">
+        <ngb-rating id="stars" [(rate)]="currentRate" [max]="5"></ngb-rating>
+      </div>
+    </div>
+
+    <!-- description -->
+    <div class="row" *ngIf="entry.ratingDescription">
+      <label for="ratingDescription" class="col-sm-2">Rating Description:</label>
+      <div class="col-sm-4">{{entry.ratingDescription}}</div>
+    </div>
+
+    <!-- Name -->
+    <div class="row" *ngIf="entry.name">
+      <label for="name" class="col-sm-2">Name:</label>
+      <div class="col-sm-4">{{entry.name}}</div>
+    </div>
+    <!-- Alias -->
+    <div class="row" *ngIf="entry.alias">
+      <label for="alias" class="col-sm-2">Alias:</label>
+      <div class="col-sm-4">{{entry.alias}}</div>
+    </div>
+
+    <!-- Host -->
+    <div class="row" *ngIf="entry.strainData">
+      <label for="alias" class="col-sm-2">Host:</label>
+      <div class="col-sm-4">{{entry.strainData.host}}</div>
+    </div>
+
+    <!-- Creator -->
+    <div class="row" *ngIf="entry.creator">
+      <label for="creator" class="col-sm-2">Creator:</label>
+      <div class="col-sm-4">{{entry.creator}}</div>
+    </div>
+
+    <!-- Creation Date -->
+    <div class="row" *ngIf="entry.creationDate">
+      <label for="creation-date" class="col-sm-2">Creation Date:</label>
+      <div class="col-sm-4">{{entry.creationDate}}</div>
+    </div>
+
+    <!-- Circular -->
+    <div class="row" *ngIf="entry.circular">
+      <label for="circular" class="col-sm-2">Circular:</label>
+      <div class="col-sm-4">{{entry.circular}}</div>
+    </div>
+
+    <!-- verified -->
+    <div class="row" *ngIf="entry.verified">
+      <label for="verified" class="col-sm-2">Experimentally Verified:</label>
+      <div class="col-sm-4">{{entry.verified}}</div>
+    </div>
+
+    <!-- status -->
+    <div class="row" *ngIf="entry.status">
+      <label for="status" class="col-sm-2">Status:</label>
+      <div class="col-sm-4">{{entry.status}}</div>
+    </div>
+    <!-- BioSafety Level -->
+    <div class="row" *ngIf="entry.bioSafetyLevel">
+      <label for="bioSafetyLevel" class="col-sm-2">BioSafety Level:</label>
+      <div class="col-sm-4">{{entry.bioSafetyLevel}}</div>
+    </div>
+    <!-- Expression Type -->
+    <div class="row" *ngIf="entry.expressionType">
+      <label for="bioSafetyLevel" class="col-sm-2">Expression Type:</label>
+      <div class="col-sm-4">{{entry.expressionType}}</div>
+    </div>
+    <!-- source lab -->
+    <div class="row" *ngIf="entry.principalInvestigator">
+      <label for="source-lab" class="col-sm-2">Source Lab:</label>
+      <div class="col-sm-4">{{entry.principalInvestigator}}</div>
+    </div>
+    <!-- backbone -->
+    <div class="row" *ngIf="entry.backbone">
+      <label for="backbone" class="col-sm-2">Backbone:</label>
+      <div class="col-sm-4">{{entry.backbone}}</div>
+    </div>
+    <!-- Origin of Replication -->
+    <div class="row" *ngIf="entry.originOfReplication">
+      <label for="origin-replication" class="col-sm-2">Origin of Replication:</label>
+      <div class="col-sm-4">{{entry.originOfReplication}}</div>
+    </div>
+    <!-- Replicates In -->
+    <div class="row" *ngIf="entry.replicatesIn">
+      <label for="replicates-in" class="col-sm-2">Replicates In:</label>
+      <div class="col-sm-4">{{entry.replicatesIn}}</div>
+    </div>
+    <!-- Supplier -->
+    <div class="row" *ngIf="entry.supplier">
+      <label for="supplier" class="col-sm-2">Supplier:</label>
+      <div class="col-sm-4">{{entry.supplier}}</div>
+    </div>
+    <!-- Funding Source -->
+    <div class="row" *ngIf="entry.fundingSource">
+      <label for="fundingSource" class="col-sm-2">Funding Source:</label>
+      <div class="col-sm-4">{{entry.fundingSource}}</div>
+    </div>
+    <!-- Keywords -->
+    <div class="row" *ngIf="entry.keywords">
+      <label for="keywords" class="col-sm-2">Keywords:</label>
+      <div class="col-sm-4">{{entry.keywords}}</div>
+    </div>
+    <!-- Benchling Link -->
+    <div class="row" *ngIf="entry.benchlingLink">
+      <label for="benchlingLink" class="col-sm-2">Benchling Link:</label>
+      <div class="col-sm-4">{{entry.benchlingLink}}</div>
+    </div>
+    <!-- Selection Markers -->
+    <div class="row" *ngIf="entry.selectionMarkers">
+      <label for="selectionMarkers" class="col-sm-2">Selection Markers:</label>
+      <div class="col-sm-4">{{entry.selectionMarkers.toString()}}</div>
+    </div>
+    <!-- promoter -->
+    <div class="row" *ngIf="entry.promoter">
+      <label for="promoter" class="col-sm-2">Promoters:</label>
+      <div class="col-sm-4">{{entry.promoter.toString()}}</div>
+    </div>
+    <!-- Disease -->
+    <div class="row" *ngIf="entry.disease">
+      <label for="disease" class="col-sm-2">Disease:</label>
+      <div class="col-sm-4">{{entry.disease.toString()}}</div>
+    </div>
+    <!-- HLA -->
+    <div class="row" *ngIf="entry.hla">
+      <label for="hla" class="col-sm-2">HLA:</label>
+      <div class="col-sm-4">{{entry.hla.toString()}}</div>
+    </div>
+    <!-- epitope -->
+    <div class="row" *ngIf="entry.epitope">
+      <label for="epitope" class="col-sm-2">Epitope</label>
+      <div class="col-sm-4">{{entry.epitope.toString()}}</div>
+    </div>
+    <!-- domain -->
+    <div class="row" *ngIf="entry.domain">
+      <label for="domain" class="col-sm-2">Domains</label>
+      <div class="col-sm-4">{{entry.domain.toString()}}</div>
+    </div>
+    <!-- Antigen -->
+    <div class="row" *ngIf="entry.antigen">
+      <label for="antigen" class="col-sm-2">Antigen</label>
+      <div class="col-sm-4">{{entry.antigen.toString()}}</div>
+    </div>
+    <!-- External URL -->
+    <div class="row" *ngIf="entry.links">
+      <label for="links" class="col-sm-2">External URL</label>
+      <div class="col-sm-4">{{entry.links.toString()}}</div>
+    </div>
+
+    <!-- genotype/phenotype -->
+    <div class="row" *ngIf="entry.strainData">
+      <label for="summary" class="col-sm-2">Genotype/Phenotype</label>
+      <div class="col-sm-4">{{entry.strainData.genotypePhenotype}}</div>
+    </div>
+
+    <!-- summary -->
+    <div class="row" *ngIf="entry.shortDescription">
+      <label for="summary" class="col-sm-2">Summary</label>
+      <div class="col-sm-4">{{entry.shortDescription}}</div>
+    </div>
+    <!-- references -->
+    <div class="row" *ngIf="entry.references">
+      <label for="references" class="col-sm-2">References</label>
+      <div class="col-sm-4">{{entry.references}}</div>
+    </div>
+    <!-- Intellectual Property -->
+    <div class="row" *ngIf="entry.intellectualProperty">
+      <label for="intellectualProperty" class="col-sm-2">Intellectual Property</label>
+      <div class="col-sm-4">{{entry.intellectualProperty}}</div>
+    </div>
+    <!-- Notes -->
+    <div class="row" *ngIf="entry.longDescription">
+      <label for="longDescription" class="col-sm-2">Notes</label>
+      <div class="col-sm-4">{{entry.longDescription}}</div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
 import { TokenStorageService } from './../../_services/token-storage.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -11,11 +12,12 @@ export class HeaderComponent implements OnInit {
 
   isLoggedIn = false;
   username = '';
-
+  searchKeyword: string | null;
   constructor (
         private router: Router,
-        private tokenStorageService: TokenStorageService) {
-    console.log(this.tokenStorageService.getToken()); 
+        private tokenStorageService: TokenStorageService,
+        private route: ActivatedRoute,
+        private location: Location   ) {
   }
 
   ngOnInit(): void { 
@@ -23,6 +25,7 @@ export class HeaderComponent implements OnInit {
     if(user) {
       this.username = user.firstName + ' ' + user.lastName;
     }
+    this.searchKeyword = this.route.snapshot.paramMap.get('keyword');
   }
 
   logout(): void {
@@ -35,6 +38,12 @@ export class HeaderComponent implements OnInit {
   }
 
   localSearch(): void {
-    this.router.navigate(['/search']);
+    if (this.searchKeyword != '' || this.searchKeyword != null) {
+      this.router.navigateByUrl(`/enteries/${this.searchKeyword}`);
+    }
+  }
+
+  goToProfile(): void {
+    this.router.navigateByUrl(`/profile`);
   }
 }

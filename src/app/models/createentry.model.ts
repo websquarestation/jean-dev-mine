@@ -55,6 +55,9 @@ export class CreateEntery {
     ratingDescription?: string,
     parameters?: any[],
     summary?: string,
-    longDescription?: string
+    longDescription?: string,
+    host?: string,
+    genotypePhenotype?: string,
+    strainData?: {}
   ) { }
 }

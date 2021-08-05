@@ -15,7 +15,7 @@ export class SearchService {
     this.baseURL = environment.baseUrl;
   }
 
-  readAll(): Observable<any> {
-    return this.httpClient.get<any>(this.baseURL + '/search?webSearch=false');
+  getSearch(formData: any): Observable<Enteries[]> {
+    return this.httpClient.post<any>(this.baseURL + '/search?webSearch=false', formData);
   }
 }

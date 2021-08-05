@@ -25,9 +25,11 @@ export class LoaderInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
     this.requests.push(req);
     this.loaderService.isLoading.next(true);
+    if (req.url.indexOf('tooltip') >= 0) {
+      this.loaderService.isLoading.next(false);
+    }
     return Observable.create((observer: any) => {
       const subscription = next.handle(req)
         .subscribe(

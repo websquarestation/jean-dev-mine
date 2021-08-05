@@ -1,0 +1,32 @@
+.top {
+  background-color: #dcddff;
+  height: 60px;
+}
+
+.back-btn {
+  float: left;
+  vertical-align: middle;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.heading {
+  float: left;
+  padding-left: 5px;
+  font-weight: bold;
+}
+
+  .heading .main {
+    font-size: 20px;
+  }
+
+  .heading .type {
+    color: #a2a5ab;
+  }
+
+  .btn {
+    margin: .5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
+  }

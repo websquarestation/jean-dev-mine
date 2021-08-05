@@ -1,42 +1,70 @@
 
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">PERSONAL</h6>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table datatable [dtOptions]="dtOptions" class="row-border hover">
-            <thead>
-              <tr>
-                <th><input type="checkbox"></th>
-                <th>TYPE</th>
-                <th>PART ID</th>
-                <th>NAME</th>
-                <th>STATUS</th>
-                <th>CREATED</th>
-              </tr>
-            </thead>
-            <tbody *ngIf="enteries?.length != 0">
-              <tr *ngFor="let entery of enteries">
-                <td><input type="checkbox"></td>
-                <td>{{ entery.type }}</td>
-                <td>
-                  <a>
-                    {{ entery.partId }}
-                  </a>
-                </td>
-                <td>{{ entery.name }}</td>
-                <td>{{ entery.status }}</td>
-                <td>{{ entery.creationTime | date }}</td>
-              </tr>
-            </tbody>
-            <tbody *ngIf="enteries?.length == 0">
-              <tr>
-                <td colspan="3" class="no-data-available">No data!</td>
-              </tr>
-            </tbody>
-          </table>  
-        </div>
-      </div>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">PERSONAL</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table datatable [dtOptions]="dtOptions" class="row-border hover">
+        <thead>
+          <tr>
+            <th style="max-width:20px!important;"><input type="checkbox"></th>
+            <th style="max-width: 70px!important;" *ngIf="searchKeyword">RELEVANCE</th>
+            <th style="max-width: 70px!important;">TYPE</th>
+            <th style="max-width: 50px!important;">PART ID</th>
+            <th style="max-width: 150px!important;">NAME</th>
+            <th style="max-width: 50px!important;">STATUS</th>
+            <th style="max-width: 70px!important;">CREATED</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="enteries?.length != 0">
+          <tr *ngFor="let entery of enteries">
+            <td><input type="checkbox"></td>
+            <td *ngIf="searchKeyword">
+              <div class="progress-bar-container">
+                <div class="progress-bar" [ngbTooltip]="entery.score"
+                     [ngStyle]="{'width': entery.progress + '%', 'background-color': entery.color}">
+                </div>
+              </div>
+            </td>
+            <!-- type -->
+            <td>{{entery.type}}</td>
+
+            <!-- partid -->
+            <td>
+              <a class="partid" (click)="entry(entery.id)"
+                 (mouseover)="getTooltip(entery.id)"
+                 [ngbTooltip]="tooltip ? tooltipTemplate : ''" placement="right">
+                {{ entery.partId }}
+              </a>
+            </td>
+
+            <!-- name -->
+            <td>{{entery.name}}</td>
+
+            <!-- status -->
+            <td>{{entery.status}}</td>
+
+            <!-- creationTime -->
+            <td>{{entery.creationTime | date}}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="enteries?.length == 0">
+          <tr>
+            <td colspan="3" class="no-data-available">No data found!!</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #tooltipTemplate>
+        Markers: <span *ngIf="tooltipData.selectionMarkers">{{tooltipData.selectionMarkers.toString()}}</span><br />
+        Creator:  <span *ngIf="tooltipData.creator">{{tooltipData.creator}}</span><br />
+        Creator Email: <span *ngIf="tooltipData.creatorEmail">{{tooltipData.creatorEmail}}</span><br />
+        Bio Safety Level: <span *ngIf="tooltipData.bioSafetyLevel">{{tooltipData.bioSafetyLevel}}</span><br />
+        Principle Investigator: <span *ngIf="tooltipData.principalInvestigator">{{tooltipData.principalInvestigator}}</span><br />
+        Modified Date: <span *ngIf="tooltipData.modificationTime">{{tooltipData.modificationTime | date: 'medium'}}</span>
+      </ng-template>
     </div>
+  </div>
+</div>

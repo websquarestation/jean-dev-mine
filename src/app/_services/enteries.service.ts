@@ -18,6 +18,10 @@ export class EnteriesService {
   readAll(params: HttpParams): Observable<Enteries[]> {
     return this.httpClient.get<Enteries[]>(this.baseURL + '/collections/personal/entries', { params });
   }
+
+  getTooltip(PartID: any): Observable<Enteries[]> {
+    return this.httpClient.get<Enteries[]>(this.baseURL + `/parts/${PartID}/tooltip`);
+  }
   
   create(data: any): Observable<any> {
     return this.httpClient.post(this.baseURL + '/parts', data);
@@ -30,9 +34,17 @@ export class EnteriesService {
       .post(this.baseURL + '/file/attachment', formData);
   }
 
-  // update(id, data): Observable<any> {
-  //   return this.httpClient.put(`${baseURL}/${id}`, data);
-  // }
+  detail(id: any): Observable<any> {
+    return this.httpClient.get(this.baseURL + `/parts/${id}`);
+  }
+
+  uploadSeqFile(type: string, fileToUpload: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    formData.append('entryType', type);
+    return this.httpClient
+      .post(this.baseURL + '/file/sequence', formData);
+  }
 
   // delete(id): Observable<any> {
   //   return this.httpClient.delete(`${baseURL}/${id}`);

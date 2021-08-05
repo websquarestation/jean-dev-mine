@@ -1,3 +1,44 @@
+.top {
+  background-color: #dcddff;
+  height: 60px;
+}
+
+.back-btn {
+  float: left;
+  vertical-align: middle;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.heading {
+  float: left;
+  padding-left: 5px;
+  font-weight: bold;
+}
+
+  .heading .main {
+    font-size: 20px;
+  }
+
+  .heading .type {
+    color: #a2a5ab;
+  }
+
+  .heading .sub {
+    font-size: 13px;
+    font-weight: normal;
+  }
+
+  .heading .dt {
+    color: #5e5c69;
+  }
+
+  .heading .creator {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
 .mandatory {
 	color:  red;
 	margin-left: 4px;
@@ -25,7 +66,7 @@
 }
 
 label {
-	font-weight: bold;	
+	font-weight: 500;
 }
 
 .form-control.ng-invalid {
@@ -44,4 +85,36 @@ label {
   right: -60px;
   top: -31px;
   float: right;
+}
+
+.cal {
+  position: relative;
+  left: -20px;
+}
+
+.form-check-input {
+  margin-left: 0!important;
+}
+
+.attachments-labels {
+  font-size: 17px;
+  padding: 5px;
+  color: #657B83;
+  border-bottom: 1px solid #e1e1e1;
+  font-family: "BebasNeue", sans-serif;
+}
+
+.green {
+  color: #33a733;
+}
+
+.jl-minus-right {
+    background: #DADADA;
+    border: 2px solid #CCCCCC;
+    left: 18px;
+}
+
+.info-alert {
+  padding: 0.2rem 1.0rem!important;
+  margin-top: 1px;
 }

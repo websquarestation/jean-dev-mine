@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 import { StarRatingComponent } from 'ng-starrating';
 import { TokenStorageService } from './../_services/token-storage.service';
@@ -13,6 +14,8 @@ import {Observable} from 'rxjs';
 
 import { EnteriesService } from '../_services/enteries.service';
 import { FiltersService } from '../_services/filters.service';
+import { NotificationService } from '../_services/notification.service'
+
 
 @Component({
   selector: 'app-createentery',
@@ -20,7 +23,7 @@ import { FiltersService } from '../_services/filters.service';
   styleUrls: ['./createentery.component.css']
 })
 export class CreateenteryComponent implements OnInit {
-  currentRate = 3.2;
+  currentRate = 0;
   
   CreatorName: String = '';
   CreatorEmail: String = '';
@@ -57,6 +60,13 @@ export class CreateenteryComponent implements OnInit {
     "value": ""
   };
   type: String;
+  isCircular: boolean = true;
+  isBackbone: boolean = true;
+  isOriginReplication: boolean = true;
+  isReplicatesIn: boolean = true;
+  isGenotype: boolean = false;
+  isHost: boolean = false;
+
   // options sample with default values
   options: DatepickerOptions = {
     calendarClass: 'datepicker-blue',
@@ -64,11 +74,16 @@ export class CreateenteryComponent implements OnInit {
     maxDate: new Date(),
     format: 'yyyy-MM-dd', // date format to display in input
   };
+    
+  progress: number;
+  seqFiledata: boolean = false;
 
   constructor(private tokenStorage: TokenStorageService,
     private enteriesService: EnteriesService,
     private filtersService: FiltersService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private notifyService: NotificationService
     ) {
     this.createEnteryModel = new CreateEntery();
   }
@@ -103,23 +118,44 @@ export class CreateenteryComponent implements OnInit {
 
     // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
     this.route.queryParams.subscribe(params => {
-      this.type = params['type'];
-      console.log(this.type);
+      this.type = params['type'].toUpperCase();
+      if (this.type == 'PLASMID') {
+        this.createEnteryModel.circular = true;
+      } else if (this.type == 'STRAIN') {
+        this.isCircular = false;
+        this.isBackbone = false;
+        this.isOriginReplication = false;
+        this.isReplicatesIn = false;
+        this.isGenotype = true;
+        this.isHost = true;
+      }
+      //console.log(this.type);
     });
   }
 
   onSubmit(form: any): void {
     let formData = form.form.value;
-    this.createEnteryModel.type = this.type;
+    //console.log(formData);
+    this.createEnteryModel.type = this.type.toUpperCase();
+    this.createEnteryModel.ratingStars = this.currentRate;
     this.createEnteryModel.creationDate = new Date(this.CreationDate).toISOString();
-    console.log(this.createEnteryModel);  
+    if (this.type == 'Strain') {
+      this.createEnteryModel.strainData = {
+        "host": this.createEnteryModel.host,
+        "genotypePhenotype": this.createEnteryModel.genotypePhenotype
+      }
+    }
+    //console.log(this.createEnteryModel);  
     this.enteriesService.create(this.createEnteryModel)
     .subscribe(
       (res: any) => {
-        console.log("response", res);
+        //console.log("response", res);
+        this.notifyService.showSuccess("Entry created successfully !!", this.type + " Entry");
+        this.router.navigateByUrl('/enteries');
       },
       err => {
-        console.log("enteries error", err);        
+        //console.log("enteries error", err);
+        this.notifyService.showError("Entry error: " + err, this.type + " Entry");
       }
     );
   }
@@ -240,7 +276,7 @@ export class CreateenteryComponent implements OnInit {
           },
           err => {
             this.loading = false;
-            console.log("enteries error", err);        
+            //console.log("enteries error", err);        
           }
         );
     }    
@@ -264,19 +300,19 @@ export class CreateenteryComponent implements OnInit {
   };
 
   handleFileInput(files: FileList): void {
-    console.log(files);
+    //console.log(files);
     if(files.length > 0) {
       this.fileToUpload = files.item(0);
-      console.log(this.fileToUpload);
+      //console.log(this.fileToUpload);
       if(this.fileToUpload != null) {
         this.enteriesService.postFile(this.fileToUpload).subscribe(data => {
-            console.log(data);
+            //console.log(data);
           // do something, if upload success
           }, error => {
-            console.log(error);
+            //console.log(error);
           });
       } else {
-        console.log("please provide file to upload");
+        //console.log("please provide file to upload");
       }
     }
 }
@@ -284,5 +320,32 @@ export class CreateenteryComponent implements OnInit {
   updateListModel(term: string, item: any): void {
     console.log(term);
     console.log(item);
+  }
+
+  uploadSeq(ev: any) {
+    let sfile = ev.target.files;
+    let filedata = sfile.item(0);
+    this.progress = 1;
+    this.seqFiledata = true;
+    this.enteriesService.uploadSeqFile(this.type.toString(), filedata)
+      .subscribe(
+        (event: any) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progress = Math.round(100 * event.loaded / event.total);
+          } else if (event instanceof HttpResponse) {
+            this.seqFiledata = false;
+            this.progress = 0;
+            //console.log(event);
+          }
+        },
+        (error) => {
+          this.progress = 0;
+          this.seqFiledata = false;
+        }
+      )
+  }
+
+  gotoBack(): void {
+    this.router.navigate(['/enteries']);
   }
 }

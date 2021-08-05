@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataTablesModule } from "angular-datatables";
@@ -27,6 +28,10 @@ import { DatepickerModule } from 'ng2-datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EntryComponent } from './entry/entry.component';
+
+import { ToastrModule } from 'ngx-toastr';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +43,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NavComponent,
     CreateenteryComponent,
     SearchComponent,
-    MyLoaderComponent
+    MyLoaderComponent,
+    EntryComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -50,11 +57,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     NgbModule,
     DatepickerModule,
-    NgSelectModule
+    NgSelectModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     authInterceptorProviders,
     LoaderService,
+    DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
    ],
   bootstrap: [AppComponent]
