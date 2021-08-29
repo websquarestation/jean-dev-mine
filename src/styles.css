@@ -7,3 +7,59 @@ body {
 .dataTables_filter, .dataTables_info, .dataTables_empty, .dataTables_length {
   display: none;
 }
+
+.global-error {
+    z-index: 999999;
+    display: none;
+    text-align: center;
+    font-weight: bold;
+    background-color: #808080;
+    top: 10%;
+    left: 10%;
+}
+
+.top {
+  background-color: #dcddff;
+  height: 60px;
+}
+
+.back-btn {
+  float: left;
+  vertical-align: middle;
+  margin-top: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.heading {
+  float: left;
+  padding-left: 5px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+  .heading .main {
+    font-size: 20px;
+  }
+
+  .heading .type {
+    color: #a2a5ab;
+  }
+
+  .heading .sub {
+    font-size: 13px;
+    font-weight: normal;
+  }
+
+  .heading .dt {
+    color: #5e5c69;
+  }
+
+  .heading .creator {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

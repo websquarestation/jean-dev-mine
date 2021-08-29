@@ -6,7 +6,12 @@
 					<a (click)="gotoBack()"><img src="assets/img/icon-back.png" width="40" /></a>
 				</div>
 				<div class="heading">
-					<div class="main"><span class="type">CREATE NEW {{type.toUpperCase()}}</span></div>
+					<div class="main">
+						<span class="type" *ngIf="add">CREATE NEW {{typeTxt}}</span>
+						<span class="type" *ngIf="edit">EDIT {{createEnteryModel.type}}
+							<span class="part">{{createEnteryModel.partId}}</span>
+						</span>
+					</div>
 					<div class="sub">
 						<span class="dt">{{CreationDate | date:'medium'}}</span>
 						&nbsp;|&nbsp;<span class="creator"><a>{{createEnteryModel.creator}}</a></span>

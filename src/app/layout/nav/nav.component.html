@@ -18,7 +18,7 @@
 	<!-- Nav Item - Dashboard -->
 	<li class="nav-item active">
 		<div class="nav-label">
-		<a class="nav-link" aria-expanded="true" href="#" (click) = "goToPage(nav.url)">
+		<a class="nav-link" aria-expanded="true" (click)="goToPage(nav.url)">
 			<i class="fas fa-fw fa-folder-open"></i>
 			<span>{{nav.label}}</span>						
 		</a>
@@ -43,7 +43,7 @@
                 <h6 class="collapse-header">Custom Folders:</h6>
                 <div class="child-menu-wrapper" *ngFor="let subitem of nav.children">
                 	<div class="menu-label">						
-                    	<a class="collapse-item" href="buttons.html"><i class="fas fa-fw fa-folder"></i>
+                    	<a class="collapse-item" (click)="gotoFolder(subitem.id)"><i class="fas fa-fw fa-folder"></i>
                     	{{ subitem.folderName }}</a>
                     </div>
                     <div (click)="deleteFolder(subitem.id, subitem.folderName)" class="del-folder list-nav-icon list-nav-icon-sm">X

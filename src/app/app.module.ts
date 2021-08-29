@@ -6,6 +6,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataTablesModule } from "angular-datatables";
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TimeagoModule } from 'ngx-timeago';
+
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -13,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { EnteriesComponent } from './enteries/enteries.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
@@ -32,6 +36,8 @@ import { EntryComponent } from './entry/entry.component';
 
 import { ToastrModule } from 'ngx-toastr';
 import { ProfileComponent } from './profile/profile.component';
+import { FoldersComponent } from './folders/folders.component';
+import { EditEntriesComponent } from './edit-entries/edit-entries.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +51,9 @@ import { ProfileComponent } from './profile/profile.component';
     SearchComponent,
     MyLoaderComponent,
     EntryComponent,
-    ProfileComponent
+    ProfileComponent,
+    FoldersComponent,
+    EditEntriesComponent
   ],
   imports: [
     BrowserModule,
@@ -58,12 +66,15 @@ import { ProfileComponent } from './profile/profile.component';
     NgbModule,
     DatepickerModule,
     NgSelectModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    Ng2SearchPipeModule,
+    TimeagoModule.forRoot()
   ],
   providers: [
     authInterceptorProviders,
     LoaderService,
     DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
    ],
   bootstrap: [AppComponent]

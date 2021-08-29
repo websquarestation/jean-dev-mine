@@ -16,144 +16,217 @@
   </div>  
   <div class="container">
     <div class="row">
-      <div class="col-12 col-sm-5 btn-group">
-        <button #editProfileBtn type="button" class="btn btn-outline-primary" (click)="editProfile()">
-          <i class="fa fa-edit"></i>
-          Edit Profile
-        </button>
-        <button #changePasswordBtn class="btn btn-outline-primary" (click)="changePassword()">
-          <i class="fa fa-key"></i>
-          Change Password
-        </button>
+      <div class="col-md-11">
+        <!-- left side -->
+        <div class="row" *ngIf="selectedItem == 'profile'">
+          <div class="col-md-5 btn-group">
+            <button #editProfileBtn type="button" class="btn btn-outline-primary" (click)="editProfile()">
+              <i class="fa fa-edit"></i>
+              Edit Profile
+            </button>
+            <button #changePasswordBtn class="btn btn-outline-primary" (click)="changePassword()">
+              <i class="fa fa-key"></i>
+              Change Password
+            </button>
+          </div>
+        </div>
+        <div class="row" *ngIf="selectedItem == 'profile'">
+          <div class="col-md-12">
+            <!-- Profile Block -->
+            <div class="profile-blck" *ngIf="showEditProfile">
+              <form name="profileForm"
+                    (ngSubmit)="profileForm.form.valid && onSubmit(profileForm)"
+                    *ngIf="!isFormSubmitted"
+                    #profileForm="ngForm"
+                    novalidate>
+
+                <div class="form-group row">
+                  <div class="alert alert-danger"
+                       role="alert"
+                       *ngIf="profileForm.submitted && profileForm.form.invalid">
+                    Error in submitting fields.
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="alert alert-success"
+                       *ngIf="profileForm.submitted && profileForm.form.valid && this.createdStatus">
+                    Profile Updated Successfully.
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="firstName" class="col-sm-2 col-form-label">
+                    First Name:
+                    <span class="mandatory">*</span>
+                  </label>
+                  <div class="col-sm-4">
+                    <input type="text" required="required" placeholder="First Name"
+                           [class.is-invalid]="firstName.invalid && firstName.touched"
+                           class="form-control" name="firstName" [(ngModel)]="profileModel.firstName"
+                           #firstName="ngModel" />
+                  </div>
+                  <!-- single error with a class binding -->
+                  <small class="text-danger" [class.d-none]="firstName.valid || firstName.untouched">* First Name is required</small>
+                </div>
+
+                <div class="form-group row">
+                  <label for="lastName" class="col-sm-2 col-form-label">Last Name:<span class="mandatory">*</span></label>
+                  <div class="col-sm-4">
+                    <input type="text" required="required" placeholder="Last Name"
+                           [class.is-invalid]="lastName.invalid && lastName.touched"
+                           class="form-control" name="lastName" [(ngModel)]="profileModel.lastName"
+                           #lastName="ngModel" />
+                  </div>
+                  <!-- single error with a class binding -->
+                  <small class="text-danger" [class.d-none]="lastName.valid || lastName.untouched">* Last Name is required</small>
+                </div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-sm-2 col-form-label">Institution:</label>
+                  <div class="col-sm-4">
+                    <input type="text" placeholder="Institution" class="form-control"
+                           name="lastname" [(ngModel)]="profileModel.institution" #institution="ngModel" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-sm-2 col-form-label">Benchling ID:</label>
+                  <div class="col-sm-4">
+                    <input type="text" placeholder="Benchling ID" class="form-control"
+                           name="benchlingId" [(ngModel)]="profileModel.benchlingId" #benchlingId="ngModel" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-sm-2 col-form-label">About:</label>
+                  <div class="col-sm-4">
+                    <textarea placeholder="About" class="form-control" name="description"
+                              rows="3" [(ngModel)]="profileModel.description"
+                              #description="ngModel"></textarea>
+                  </div>
+                </div>
+                <button [disabled]="profileForm.form.invalid" type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+
+            <!-- change password -->
+            <div class="pass-blck" *ngIf="showChangePassword">
+              <form name="changePassForm"
+                    (ngSubmit)="changePassForm.form.valid && onChangeSubmit(changePassForm)"
+                    *ngIf="!isCFormSubmitted"
+                    #changePassForm="ngForm"
+                    novalidate>
+
+                <div class="form-group row">
+                  <div class="alert alert-danger"
+                       role="alert"
+                       *ngIf="changePassForm.submitted && changePassForm.form.invalid">
+                    Error in submitting fields.
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="alert alert-success"
+                       *ngIf="changePassForm.submitted && changePassForm.form.valid && this.changetatus">
+                    Password Changed Successfully.
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="firstName" class="col-sm-2 col-form-label">
+                    New Password:
+                    <span class="mandatory">*</span>
+                  </label>
+                  <div class="col-sm-4">
+                    <input type="password" required="required" placeholder="New Password"
+                           [class.is-invalid]="newPassword.invalid && newPassword.touched"
+                           class="form-control" name="newPassword" [(ngModel)]="profileModel.newPassword"
+                           #newPassword="ngModel" />
+                  </div>
+                  <!-- single error with a class binding -->
+                  <small class="text-danger" [class.d-none]="newPassword.valid || newPassword.untouched">* New Password is required</small>
+                </div>
+
+                <div class="form-group row">
+                  <label for="lastName" class="col-sm-2 col-form-label">
+                    Confirm Password:
+                    <span class="mandatory">*</span>
+                  </label>
+                  <div class="col-sm-4">
+                    <input type="password" required="required" placeholder="Confirm Password"
+                           [class.is-invalid]="confirmPassword.invalid && confirmPassword.touched"
+                           class="form-control" name="confirmPassword" [(ngModel)]="profileModel.confirmPassword"
+                           #confirmPassword="ngModel" />
+                  </div>
+                  <!-- single error with a class binding -->
+                  <small class="text-danger" [class.d-none]="confirmPassword.valid || confirmPassword.untouched">* Confirm Password is required</small>
+                  <small class="text-danger" *ngIf="changePassForm.submitted && !passwordMatched">Password and Confirm Password must be match.</small>
+                </div>
+
+                <button [disabled]="changePassForm.form.invalid" type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row settings-blck" *ngIf="selectedItem == 'settings'">
+          <div class="col-md-12">
+            <div class="alert alert-primary" role="alert">
+              <i class="fa fa-info"></i>
+              Enter default values for new entries.</div>
+            <div class="row">
+              <div class="col-md-3">
+                <label class="">Principal Investigator:</label>
+              </div>
+              <div class="col-md-6" *ngIf="principalInvestigatorEditable">
+                <span class="settings-val" *ngIf="principalInvestigator == ''" (mouseover)="principalInvestigatorEdit=true; fundingSourceEdit=false;">None Specified</span>
+                <span *ngIf="principalInvestigator != ''" (mouseover)="principalInvestigatorEdit=true; fundingSourceEdit=false;">{{principalInvestigator}}</span>
+                <span class="settings-val-edit" (click)="principalInvestigatorInput=true; principalInvestigatorEditable=false;" *ngIf="principalInvestigatorEdit"><i class="fa fa-edit"></i></span>
+              </div>
+              <div class="col-md-6 settings-inp-blck" *ngIf="principalInvestigatorInput">
+                <input type="text" class="settings-name"
+                       [(ngModel)]="principalInvestigator" name="principalInvestigator" />
+                <button class="btn btn-primary settings-btn btn-sm" (click)="saveSettingsVal('PRINCIPAL_INVESTIGATOR')">Save</button>
+                <button class="btn btn-outline-dark settings-btn btn-sm" (click)="principalInvestigatorInput=false; principalInvestigatorEditable=true;">Cancel</button>
+              </div>
+            </div>
+            <!-- seperator -->
+            <div class="row">
+              <div class="col-md-12">&nbsp;</div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <label class="">Funding Source:</label>
+              </div>
+              <div class="col-md-6" *ngIf="fundingSourceEditable">
+                <span class="settings-val" *ngIf="fundingSource == ''" (mouseover)="fundingSourceEdit=true; principalInvestigatorEdit=false;">None Specified</span>
+                <span *ngIf="fundingSource != ''" (mouseover)="fundingSourceEdit=true; principalInvestigatorEdit=false;">{{fundingSource}}</span>
+                <span class="settings-val-edit" (click)="fundingSourceInput=true; fundingSourceEditable=false;" *ngIf="fundingSourceEdit"><i class="fa fa-edit"></i></span>
+              </div>
+              <div class="col-md-6 settings-inp-blck" *ngIf="fundingSourceInput">
+                <input type="text" class="settings-name" name="fundingSource"
+                       [(ngModel)]="fundingSource" />
+                <button class="btn btn-primary settings-btn btn-sm" (click)="saveSettingsVal('FUNDING_SOURCE')">Save</button>
+                <button class="btn btn-outline-dark settings-btn btn-sm" (click)="fundingSourceInput=false; fundingSourceEditable=true;">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
+      <div class="col-sm-1">
+        <!-- Right Nav -->
+        <div class="row">
+          <div class="col-sm-12 right-btns">
+            <a class="btn btn-icon-split hightlight" [ngClass]="{'hightlight': selectedItem == item.slug}"
+                *ngFor="let item of rightNavItems"
+                    (click)="profileNav(item.slug)">
+              <span class="icon text-white-50">
+                <i class="fas {{item.icon}}"></i>
+              </span>
+              <span class="text">{{item.title}}</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="profile-blck" *ngIf="showEditProfile">
-      <form name="profileForm"
-            (ngSubmit)="profileForm.form.valid && onSubmit(profileForm)"
-            *ngIf="!isFormSubmitted"
-            #profileForm="ngForm"
-            novalidate>
-
-        <div class="form-group row">
-          <div class="alert alert-danger"
-               role="alert"
-               *ngIf="profileForm.submitted && profileForm.form.invalid">
-            Error in submitting fields.
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <div class="alert alert-success"
-               *ngIf="profileForm.submitted && profileForm.form.valid && this.createdStatus">
-            Profile Updated Successfully.
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="firstName" class="col-sm-2 col-form-label">First Name:
-                <span class="mandatory">*</span></label>
-          <div class="col-sm-4">
-            <input type="text" required="required" placeholder="First Name"
-                   [class.is-invalid]="firstName.invalid && firstName.touched"
-                   class="form-control" name="firstName" [(ngModel)]="profileModel.firstName"
-                   #firstName="ngModel" />
-          </div>
-          <!-- single error with a class binding -->
-          <small class="text-danger" [class.d-none]="firstName.valid || firstName.untouched">* First Name is required</small>
-        </div>
-
-        <div class="form-group row">
-          <label for="lastName" class="col-sm-2 col-form-label">Last Name:<span class="mandatory">*</span></label>
-          <div class="col-sm-4">
-            <input type="text" required="required" placeholder="Last Name"
-                   [class.is-invalid]="lastName.invalid && lastName.touched"
-                   class="form-control" name="lastName" [(ngModel)]="profileModel.lastName"
-                   #lastName="ngModel" />
-          </div>
-          <!-- single error with a class binding -->
-          <small class="text-danger" [class.d-none]="lastName.valid || lastName.untouched">* Last Name is required</small>
-        </div>
-
-        <div class="form-group row">
-          <label for="name" class="col-sm-2 col-form-label">Institution:</label>
-          <div class="col-sm-4">
-            <input type="text" placeholder="Institution" class="form-control"
-                   name="lastname" [(ngModel)]="profileModel.institution" #institution="ngModel" />
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="name" class="col-sm-2 col-form-label">Benchling ID:</label>
-          <div class="col-sm-4">
-            <input type="text" placeholder="Benchling ID" class="form-control"
-                   name="benchlingId" [(ngModel)]="profileModel.benchlingId" #benchlingId="ngModel" />
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="name" class="col-sm-2 col-form-label">About:</label>
-          <div class="col-sm-4">
-            <textarea placeholder="About" class="form-control" name="description"
-                      rows="3" [(ngModel)]="profileModel.description"
-                      #description="ngModel"></textarea>            
-          </div>
-        </div>
-        <button  [disabled]="profileForm.form.invalid" type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
-    <div class="pass-blck" *ngIf="showChangePassword">
-      <form name="changePassForm"
-            (ngSubmit)="changePassForm.form.valid && onChangeSubmit(changePassForm)"
-            *ngIf="!isCFormSubmitted"
-            #changePassForm="ngForm"
-            novalidate>
-
-        <div class="form-group row">
-          <div class="alert alert-danger"
-               role="alert"
-               *ngIf="changePassForm.submitted && changePassForm.form.invalid">
-            Error in submitting fields.
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <div class="alert alert-success"
-               *ngIf="changePassForm.submitted && changePassForm.form.valid && this.changetatus">
-            Password Changed Successfully.
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="firstName" class="col-sm-2 col-form-label">
-            New Password:
-            <span class="mandatory">*</span>
-          </label>
-          <div class="col-sm-4">
-            <input type="password" required="required" placeholder="New Password"
-                   [class.is-invalid]="newPassword.invalid && newPassword.touched"
-                   class="form-control" name="newPassword" [(ngModel)]="profileModel.newPassword"
-                   #newPassword="ngModel" />
-          </div>
-          <!-- single error with a class binding -->
-          <small class="text-danger" [class.d-none]="newPassword.valid || newPassword.untouched">* New Password is required</small>
-        </div>
-
-        <div class="form-group row">
-          <label for="lastName" class="col-sm-2 col-form-label">
-            Confirm Password:
-            <span class="mandatory">*</span>
-          </label>
-          <div class="col-sm-4">
-            <input type="password" required="required" placeholder="Confirm Password"
-                   [class.is-invalid]="confirmPassword.invalid && confirmPassword.touched"
-                   class="form-control" name="confirmPassword" [(ngModel)]="profileModel.confirmPassword"
-                   #confirmPassword="ngModel" />
-          </div>
-          <!-- single error with a class binding -->
-          <small class="text-danger" [class.d-none]="confirmPassword.valid || confirmPassword.untouched">* Confirm Password is required</small>
-          <small class="text-danger" *ngIf="changePassForm.submitted && !passwordMatched">Password and Confirm Password must be match.</small>
-        </div>
-
-        <button [disabled]="changePassForm.form.invalid" type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
   </div>
+ </div>

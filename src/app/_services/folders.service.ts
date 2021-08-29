@@ -26,4 +26,8 @@ export class FoldersService {
   delete(id: any): Observable<any> {
     return this.httpClient.delete(`${this.baseURL}/folders/${id}?type=PRIVATE`);
   }
+
+  moveEntries(data: any): Observable<any> {
+    return this.httpClient.put(this.baseURL + '/folders/entries', data);
+  }
 }

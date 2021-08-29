@@ -63,3 +63,7 @@
   color: #dadada;
   font-size: 12px;
 }
+
+a {
+    cursor: pointer;
+}

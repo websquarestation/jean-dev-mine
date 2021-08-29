@@ -9,7 +9,8 @@
 	<form
 	class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 		<div class="input-group">
-			<input type="text" class="form-control bg-light border-0 small" name="searchKeyword" [(ngModel)]="searchKeyword" placeholder="Search for..."
+			<input type="text" class="form-control bg-light border-0 small" name="searchKeyword"
+						 [(ngModel)]="searchKeyword" placeholder="Search for..."
 			aria-label="Search" aria-describedby="basic-addon2" (keyup.enter)="localSearch()">
 			<div class="input-group-append">
 				<button (click)="localSearch()" class="btn btn-primary" type="button">
@@ -83,30 +84,13 @@
 				<!-- Dropdown - User Information -->
 				<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" *dropdownMenu
 				aria-labelledby="entryDropdown">
-					<a class="dropdown-item" (click)="createEntery('PlasmId')">
-						<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-						Plasmid
-					</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" (click)="createEntery('Strain')">
-						<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-						Strain
-					</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" (click)="createEntery('Part')">
-						<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-						Part
-					</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" (click)="createEntery('Protien')">
-						<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-						Protien
-					</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" (click)="createEntery('Order')">
-						<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-						Order
-					</a>
+					<ng-container *ngFor="let item of createTypes">
+						<a class="dropdown-item" (click)="createEntery(item.title)">
+							<i class="fas {{item.icon}} fa-sm fa-fw mr-2 text-gray-400"></i>
+							{{item.title}}
+						</a>
+						<div class="dropdown-divider"></div>
+					</ng-container>
 				</div>
 			</li>
 		</ul>

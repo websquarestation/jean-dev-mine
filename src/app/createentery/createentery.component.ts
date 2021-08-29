@@ -14,7 +14,7 @@ import {Observable} from 'rxjs';
 
 import { EnteriesService } from '../_services/enteries.service';
 import { FiltersService } from '../_services/filters.service';
-import { NotificationService } from '../_services/notification.service'
+import { NotificationService } from '../_services/notification.service';
 
 
 @Component({
@@ -60,6 +60,7 @@ export class CreateenteryComponent implements OnInit {
     "value": ""
   };
   type: String;
+  typeTxt: String;
   isCircular: boolean = true;
   isBackbone: boolean = true;
   isOriginReplication: boolean = true;
@@ -77,7 +78,9 @@ export class CreateenteryComponent implements OnInit {
     
   progress: number;
   seqFiledata: boolean = false;
-
+  id: any = '';
+  edit: boolean = false;
+  add: boolean = false;
   constructor(private tokenStorage: TokenStorageService,
     private enteriesService: EnteriesService,
     private filtersService: FiltersService,
@@ -117,20 +120,46 @@ export class CreateenteryComponent implements OnInit {
     this.createEnteryModel.bioSafetyLevel = 1;
 
     // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
-    this.route.queryParams.subscribe(params => {
-      this.type = params['type'].toUpperCase();
-      if (this.type == 'PLASMID') {
-        this.createEnteryModel.circular = true;
-      } else if (this.type == 'STRAIN') {
-        this.isCircular = false;
-        this.isBackbone = false;
-        this.isOriginReplication = false;
-        this.isReplicatesIn = false;
-        this.isGenotype = true;
-        this.isHost = true;
+    this.route.queryParams
+      .subscribe((params: any) => {
+      if (params['type']) {
+        this.type = params['type'];
+        this.typeTxt = params['type'].toUpperCase();
+        if (this.typeTxt == 'PLASMID') {
+          this.createEnteryModel.circular = true;
+        } else if (this.typeTxt == 'STRAIN') {
+          this.isCircular = false;
+          this.isBackbone = false;
+          this.isOriginReplication = false;
+          this.isReplicatesIn = false;
+          this.isGenotype = true;
+          this.isHost = true;
+        }
       }
-      //console.log(this.type);
-    });
+      });
+
+    this.id = this.route.snapshot.paramMap.get('id');
+    if (this.id != null) {
+      this.edit = true;
+      this.getEntryDetails();
+    } else {
+      this.add = true;
+    }
+  }
+
+  getEntryDetails(): void {
+    this.enteriesService.detail(this.id)
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          this.createEnteryModel = res;
+          this.currentRate = res.ratingStars;
+          this.type = res.type;
+        },
+        err => {
+          console.log("entry errpr", err);
+        }
+      );
   }
 
   onSubmit(form: any): void {
@@ -145,19 +174,34 @@ export class CreateenteryComponent implements OnInit {
         "genotypePhenotype": this.createEnteryModel.genotypePhenotype
       }
     }
-    //console.log(this.createEnteryModel);  
-    this.enteriesService.create(this.createEnteryModel)
-    .subscribe(
-      (res: any) => {
-        //console.log("response", res);
-        this.notifyService.showSuccess("Entry created successfully !!", this.type + " Entry");
-        this.router.navigateByUrl('/enteries');
-      },
-      err => {
-        //console.log("enteries error", err);
-        this.notifyService.showError("Entry error: " + err.message, this.type + " Entry");
-      }
-    );
+
+    if (this.add == true) {
+      this.enteriesService.create(this.createEnteryModel)
+        .subscribe(
+          (res: any) => {
+            console.log("response", res);
+            this.notifyService.showSuccess("Entry created successfully !!", this.type + " Entry");
+            this.router.navigateByUrl('/entry/' + res.id);
+          },
+          err => {
+            //console.log("enteries error", err);
+            this.notifyService.showError("Entry error: " + err.message, this.type + " Entry");
+          }
+        );
+    } else {
+      this.enteriesService.update(this.id, this.createEnteryModel)
+        .subscribe(
+          (res: any) => {
+            console.log("response", res);
+            this.notifyService.showSuccess("Entry updated successfully !!", this.type + " Entry");
+            this.router.navigateByUrl('/entry/' + res.id);
+          },
+          err => {
+            //console.log("enteries error", err);
+            this.notifyService.showError("Entry error: " + err.message, this.type + " Entry");
+          }
+        );
+    }
   }
 
   addMore(t: any): void {
@@ -346,6 +390,6 @@ export class CreateenteryComponent implements OnInit {
   }
 
   gotoBack(): void {
-    this.router.navigate(['/enteries']);
+    this.router.navigate(['enteries/folder/personal']);
   }
 }

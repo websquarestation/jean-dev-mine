@@ -1,0 +1,126 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 align-self-center">
+      <div class="top">
+        <div class="back-btn">
+          <a (click)="gotoBack()"><img src="assets/img/icon-back.png" width="40" /></a>
+        </div>
+        <div class="heading">
+          <div class="main"><span class="type">MULTI UPLOAD</span>&nbsp;Bulk Edit</div>
+          <div class="sub">
+            <span class="dt">
+              Last Updated:&nbsp;
+              <i class="fas fa-circle" style="color: green;"></i>&nbsp;
+              <span *ngIf="lastUpdate!= ''" timeago [date]="lastUpdate"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Editable table -->
+  <div class="card">
+    <div class="card-body">
+        <div id="table" class="table-editable table-wrapper">
+          <table class="table table-bordered table-responsive-md table-striped text-center">
+            <thead>
+              <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">Star Ratings</th>
+                <th class="text-center">Part ID</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Alias</th>
+                <th class="text-center">Creator</th>
+                <th class="text-center">Creation Date</th>
+                <th class="text-center">Circular</th>
+                <th class="text-center">Ex. Verif.</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">BioSafety</th>
+                <th class="text-center">Expr. Type</th>
+                <th class="text-center">Source Lab</th>
+                <th class="text-center">Backbone</th>
+                <th class="text-center">Origin of Replication</th>
+                <th class="text-center">Replicates In</th>
+                <th class="text-center">Supplier</th>
+                <th class="text-center">Funding Source</th>
+                <th class="text-center">Keywords</th>
+                <th class="text-center">Benchling Link</th>
+                <th class="text-center">Selection Markers</th>
+                <th class="text-center">Promoters</th>
+                <th class="text-center">Disease</th>
+                <th class="text-center">HLA</th>
+                <th class="text-center">Epitope</th>
+                <th class="text-center">Domains</th>
+                <th class="text-center">Antigen</th>
+                <th class="text-center">External URL</th>
+                <th class="text-center">Summary<span class=''>*</span></th>
+                <th class="text-center">References</th>
+                <th class="text-center">Intellectual Property</th>
+                <th class="text-center">Rating Description</th>
+                <th class="text-center">T7 to EcoRI Length</th>
+                <th class="text-center">T7 to Xbal Length</th>
+                <th class="text-center">Sequence Trace File</th>
+                <th class="text-center">Sequence File</th>
+                <th class="text-center">Attachment File</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of dataset; let id = index">
+                <td>{{item.id}}</td>
+                <td>{{item.ratingStars}}</td>
+                <td>{{item.partId}}</td>
+                <td (blur)="updateList(item.id, 'name', $event)" (click)="changeValue(item.id,'name',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.name}}</td>
+                <td (blur)="updateList(item.id, 'alias', $event)" (click)="changeValue(item.id,'alias',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.alias}}</td>
+                <td (blur)="updateList(item.id, 'creator', $event)" (click)="changeValue(item.id,'creator',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.creator}}</td>
+                <td (blur)="updateList(item.id, 'creationDate', $event)" (click)="changeValue(item.id,'creationDate',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.creationDate}}</td>
+                <td><input type="checkbox" name="circular" [(ngModel)]="item.plasmidData.circular" (blur)="updateList(item.id, 'circular', $event)"></td>                
+                <td><input type="checkbox" name="verified" [(ngModel)]="item.verified" (blur)="updateList(item.id, 'verified', $event)"></td>               
+                <td>
+                  <select name="status" [(ngModel)]="item.status" (blur)="updateList(item.id, 'status', $event)">
+                    <option value="Complete">Complete</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Abandoned">Abandoned</option>
+                    <option value="Planned">Planned</option>
+                  </select>
+                </td>
+                <td>
+                  <select name="status" [(ngModel)]="item.bioSafetyLevel" (blur)="updateList(item.id, 'bioSafetyLevel', $event)">
+                    <option value="1">Level 1</option>
+                    <option value="2">Level 2</option>
+                    <option value="-1">Restricted</option>
+                  </select>
+                </td>
+                <td (blur)="updateList(item.id, 'status', $event)" (click)="changeValue(item.id,'status',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.expressionType}}</td>
+                <td (blur)="updateList(item.id, 'principalInvestigator', $event)" (click)="changeValue(item.id,'principalInvestigator',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.principalInvestigator}}</td>
+                <td ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class=""></td>
+                <td ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class=""></td>
+                <td ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class=""></td>
+                <td (blur)="updateList(item.id, 'supplier', $event)" (click)="changeValue(item.id,'supplier',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.supplier}}</td>
+                <td (blur)="updateList(item.id, 'fundingSource', $event)" (click)="changeValue(item.id,'fundingSource',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.fundingSource}}</td>
+                <td (blur)="updateList(item.id, 'keywords', $event)" (click)="changeValue(item.id,'keywords',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.keywords}}</td>
+                <td (blur)="updateList(item.id, 'benchlingLink', $event)" (click)="changeValue(item.id,'benchlingLink',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.benchlingLink}}</td>
+                <td (blur)="updateList(item.id, 'selectionMarkers', $event)" (click)="changeValue(item.id,'selectionMarkers',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.selectionMarkers.toString()}}</td>
+                <td (blur)="updateList(item.id, 'promoter', $event)" (click)="changeValue(item.id,'promoter',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.promoter}}</td>
+                <td (blur)="updateList(item.id, 'disease', $event)" (click)="changeValue(item.id,'disease',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.disease.toString()}}</td>
+                <td (blur)="updateList(item.id, 'hla', $event)" (click)="changeValue(item.id,'hla',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.hla.toString()}}</td>
+                <td (blur)="updateList(item.id, 'epitope', $event)" (click)="changeValue(item.id,'epitope',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.epitope.toString()}}</td>
+                <td (blur)="updateList(item.id, 'domain', $event)" (click)="changeValue(item.id,'domain',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.domain.toString()}}</td>
+                <td (blur)="updateList(item.id, 'antigen', $event)" (click)="changeValue(item.id,'antigen',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.antigen.toString()}}</td>
+                <td (blur)="updateList(item.id, 'links', $event)" (click)="changeValue(item.id,'links',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.links.toString()}}</td>
+                <td (blur)="updateList(item.id, 'shortDescription', $event)" (click)="changeValue(item.id,'shortDescription',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.shortDescription}}</td>
+                <td (blur)="updateList(item.id, 'references', $event)" (click)="changeValue(item.id,'references',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.references}}</td>
+                <td (blur)="updateList(item.id, 'intellectualProperty', $event)" (click)="changeValue(item.id,'intellectualProperty',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.intellectualProperty}}</td>
+                <td (blur)="updateList(item.id, 'ratingDescription', $event)" (click)="changeValue(item.id,'ratingDescription',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.ratingDescription}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td (blur)="updateList(item.id, 'sequenceFileName', $event)" (click)="changeValue(item.id,'sequenceFileName',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.sequenceFileName}}</td>
+                <td></td>                               
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+  <!-- Editable table -->
+</div>

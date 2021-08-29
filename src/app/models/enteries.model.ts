@@ -12,4 +12,6 @@ export class Enteries {
   progress?: any;
   color?: string;
   score?: any;
+  shortDescription: any;
+  isSelected: boolean;
 }

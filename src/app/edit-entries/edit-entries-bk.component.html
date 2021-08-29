@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 align-self-center">
+      <div class="top">
+        <div class="back-btn">
+          <a (click)="gotoBack()"><img src="assets/img/icon-back.png" width="40" /></a>
+        </div>
+        <div class="heading">
+          <div class="main"><span class="type">MULTI UPLOAD</span>&nbsp;Bult Edit</div>
+          <div class="sub">
+            <span class="dt">
+              Last Updated:&nbsp;
+              <i class="fas fa-circle" style="color: green;"></i>&nbsp;
+              <span *ngIf="lastUpdate!= ''" timeago [date]="lastUpdate"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="data-table">
+    <hot-table [data]="dataset" hotId="htid" [settings]="hotSettings">
+      <hot-column data="id" [readOnly]="true" title="ID"></hot-column>
+      <hot-column data="ratingStars" title="Star Ratings"></hot-column>
+      <hot-column data="partId" title="Part ID"></hot-column>
+      <hot-column data="name" title="Name"></hot-column>
+      <hot-column data="alias" title="Alias"></hot-column>
+      <hot-column data="creator" title="Creator"></hot-column>
+      <hot-column data="creationDate" title="Creation Date"></hot-column>
+      <hot-column data="status" title="Status"></hot-column>
+      <hot-column data="bioSafetyLevel" title="BioSafety"></hot-column>
+      <hot-column data="type" title="Entry Type"></hot-column>
+      <hot-column data="" title="Document Type"></hot-column>
+      <hot-column data="expressionType" title="Expr. Type"></hot-column>
+      <hot-column data="principalInvestigator" title="Source Lab"></hot-column>
+      <hot-column data="plasmidData.backbone" title="Backbone"></hot-column>
+      <hot-column data="plasmidData.originOfReplication" title="Origin of Replication"></hot-column>
+      <hot-column data="plasmidData.replicatesIn" title="Replicates In"></hot-column>
+      <hot-column data="supplier" title="Supplier"></hot-column>
+      <hot-column data="fundingSource" title="Funding Source"></hot-column>
+      <hot-column data="" title="Organism"></hot-column>
+      <hot-column data="" title="Full Name"></hot-column>
+      <hot-column data="" title="Gene Name"></hot-column>
+      <hot-column data="" title="Uploaded From"></hot-column>
+      <hot-column data="" title="Qoute Number"></hot-column>
+      <hot-column data="keywords" title="Keywords"></hot-column>
+      <hot-column data="benchlingLink" title="Benchling Link"></hot-column>
+      <hot-column data="selectionMarkers" title="Selection Markers"></hot-column>
+      <hot-column data="promoter" title="Promoters"></hot-column>
+      <hot-column data="" title="Phyiscal Location"></hot-column>
+      <hot-column data="disease" title="Disease"></hot-column>
+      <hot-column data="hla" title="HLA"></hot-column>
+      <hot-column data="epitope" title="Epitope"></hot-column>
+      <hot-column data="domain" title="Domains"></hot-column>
+      <hot-column data="antigen" title="Antigen"></hot-column>
+      <hot-column data="supplier" title="External URL"></hot-column>
+      <hot-column data="shortDescription" title="Summary<span class=''>*</span>"></hot-column>
+      <hot-column data="references" title="References"></hot-column>
+      <hot-column data="intellectualProperty" title="Intellectual Property"></hot-column>
+      <hot-column data="ratingDescription" title="Rating Description"></hot-column>
+      <hot-column data="" title="T7 to EcoRI Length"></hot-column>
+      <hot-column data="" title="T7 to Xbal Length"></hot-column>
+      <hot-column data="" title="Sequence Trace File"></hot-column>
+      <hot-column data="" title="Sequence File"></hot-column>
+      <hot-column data="" title="Attachment File"></hot-column>
+    </hot-table>
+  </div>
+</div>

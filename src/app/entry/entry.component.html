@@ -17,181 +17,191 @@
   </div>
   <div class="detail-form">
     <!-- rating -->
-    <div class="row">
-      <label for="stars" class="col-sm-2">Star Rating:</label>
-      <div class="col-sm-10">
-        <ngb-rating id="stars" [(rate)]="currentRate" [max]="5"></ngb-rating>
+    <div class="row mt-2">
+      <label for="stars" class="col-sm-3">Star Rating:</label>
+      <div class="col-sm-6">
+        <ngb-rating id="stars" [(rate)]="entry.ratingStars" [max]="5" (click)="updateEntry('Star Rating', entry.ratingStars)"></ngb-rating>
       </div>
     </div>
 
     <!-- description -->
-    <div class="row" *ngIf="entry.ratingDescription">
-      <label for="ratingDescription" class="col-sm-2">Rating Description:</label>
-      <div class="col-sm-4">{{entry.ratingDescription}}</div>
+    <div class="row mt-2" *ngIf="entry.ratingDescription">
+      <label for="ratingDescription" class="col-sm-3">Rating Description:</label>
+      <div class="col-sm-8" *ngIf="!editratingDescription" (mouseover)="rd = false" (mouseleave)="rd = true">
+        <span>{{entry.ratingDescription}}</span>
+        <span class="fa fa-edit fa-1" [hidden]="rd" aria-hidden="true" (click)="editratingDescription=true"></span>
+      </div>
+      <div class="col-sm-8 form-group" *ngIf="editratingDescription">
+        <span><input type="text" ([ngModel])="entry.ratingDescription" value="{{entry.ratingDescription}}"
+                     placeholder="Enter Rating Description" class="font-control inp-sm"
+                     name="ratingDescription" /></span>
+        <span><button class="btn btn-success btn-sm" (click)="updateEntry('Rating Description', entry.ratingDescription); editratingDescription=false">Save</button></span>
+        <span><button class="btn btn-danger btn-sm" (click)="editratingDescription=false">Cancel</button></span>
+      </div>
     </div>
 
     <!-- Name -->
-    <div class="row" *ngIf="entry.name">
-      <label for="name" class="col-sm-2">Name:</label>
-      <div class="col-sm-4">{{entry.name}}</div>
+    <div class="row mt-2" *ngIf="entry.name">
+      <label for="name" class="col-sm-3">Name:</label>
+      <div class="col-sm-3">{{entry.name}}</div>
     </div>
     <!-- Alias -->
-    <div class="row" *ngIf="entry.alias">
-      <label for="alias" class="col-sm-2">Alias:</label>
-      <div class="col-sm-4">{{entry.alias}}</div>
+    <div class="row mt-2" *ngIf="entry.alias">
+      <label for="alias" class="col-sm-3">Alias:</label>
+      <div class="col-sm-3">{{entry.alias}}</div>
     </div>
 
     <!-- Host -->
-    <div class="row" *ngIf="entry.strainData">
-      <label for="alias" class="col-sm-2">Host:</label>
-      <div class="col-sm-4">{{entry.strainData.host}}</div>
+    <div class="row mt-2" *ngIf="entry.strainData">
+      <label for="alias" class="col-sm-3">Host:</label>
+      <div class="col-sm-3">{{entry.strainData.host}}</div>
     </div>
 
     <!-- Creator -->
-    <div class="row" *ngIf="entry.creator">
-      <label for="creator" class="col-sm-2">Creator:</label>
-      <div class="col-sm-4">{{entry.creator}}</div>
+    <div class="row mt-2" *ngIf="entry.creator">
+      <label for="creator" class="col-sm-3">Creator:</label>
+      <div class="col-sm-3">{{entry.creator}}</div>
     </div>
 
     <!-- Creation Date -->
-    <div class="row" *ngIf="entry.creationDate">
-      <label for="creation-date" class="col-sm-2">Creation Date:</label>
-      <div class="col-sm-4">{{entry.creationDate}}</div>
+    <div class="row mt-2" *ngIf="entry.creationDate">
+      <label for="creation-date" class="col-sm-3">Creation Date:</label>
+      <div class="col-sm-3">{{entry.creationDate}}</div>
     </div>
 
     <!-- Circular -->
-    <div class="row" *ngIf="entry.circular">
-      <label for="circular" class="col-sm-2">Circular:</label>
-      <div class="col-sm-4">{{entry.circular}}</div>
+    <div class="row mt-2" *ngIf="entry.circular">
+      <label for="circular" class="col-sm-3">Circular:</label>
+      <div class="col-sm-3">{{entry.circular}}</div>
     </div>
 
     <!-- verified -->
-    <div class="row" *ngIf="entry.verified">
-      <label for="verified" class="col-sm-2">Experimentally Verified:</label>
-      <div class="col-sm-4">{{entry.verified}}</div>
+    <div class="row mt-2" *ngIf="entry.verified">
+      <label for="verified" class="col-sm-3">Experimentally Verified:</label>
+      <div class="col-sm-3">{{entry.verified}}</div>
     </div>
 
     <!-- status -->
-    <div class="row" *ngIf="entry.status">
-      <label for="status" class="col-sm-2">Status:</label>
-      <div class="col-sm-4">{{entry.status}}</div>
+    <div class="row mt-2" *ngIf="entry.status">
+      <label for="status" class="col-sm-3">Status:</label>
+      <div class="col-sm-3">{{entry.status}}</div>
     </div>
     <!-- BioSafety Level -->
-    <div class="row" *ngIf="entry.bioSafetyLevel">
-      <label for="bioSafetyLevel" class="col-sm-2">BioSafety Level:</label>
-      <div class="col-sm-4">{{entry.bioSafetyLevel}}</div>
+    <div class="row mt-2" *ngIf="entry.bioSafetyLevel">
+      <label for="bioSafetyLevel" class="col-sm-3">BioSafety Level:</label>
+      <div class="col-sm-3">{{entry.bioSafetyLevel}}</div>
     </div>
     <!-- Expression Type -->
-    <div class="row" *ngIf="entry.expressionType">
-      <label for="bioSafetyLevel" class="col-sm-2">Expression Type:</label>
-      <div class="col-sm-4">{{entry.expressionType}}</div>
+    <div class="row mt-2" *ngIf="entry.expressionType">
+      <label for="bioSafetyLevel" class="col-sm-3">Expression Type:</label>
+      <div class="col-sm-3">{{entry.expressionType}}</div>
     </div>
     <!-- source lab -->
-    <div class="row" *ngIf="entry.principalInvestigator">
-      <label for="source-lab" class="col-sm-2">Source Lab:</label>
-      <div class="col-sm-4">{{entry.principalInvestigator}}</div>
+    <div class="row mt-2" *ngIf="entry.principalInvestigator">
+      <label for="source-lab" class="col-sm-3">Source Lab:</label>
+      <div class="col-sm-3">{{entry.principalInvestigator}}</div>
     </div>
     <!-- backbone -->
-    <div class="row" *ngIf="entry.backbone">
-      <label for="backbone" class="col-sm-2">Backbone:</label>
-      <div class="col-sm-4">{{entry.backbone}}</div>
+    <div class="row mt-2" *ngIf="entry.backbone">
+      <label for="backbone" class="col-sm-3">Backbone:</label>
+      <div class="col-sm-3">{{entry.backbone}}</div>
     </div>
     <!-- Origin of Replication -->
-    <div class="row" *ngIf="entry.originOfReplication">
-      <label for="origin-replication" class="col-sm-2">Origin of Replication:</label>
-      <div class="col-sm-4">{{entry.originOfReplication}}</div>
+    <div class="row mt-2" *ngIf="entry.originOfReplication">
+      <label for="origin-replication" class="col-sm-3">Origin of Replication:</label>
+      <div class="col-sm-3">{{entry.originOfReplication}}</div>
     </div>
     <!-- Replicates In -->
-    <div class="row" *ngIf="entry.replicatesIn">
-      <label for="replicates-in" class="col-sm-2">Replicates In:</label>
-      <div class="col-sm-4">{{entry.replicatesIn}}</div>
+    <div class="row mt-2" *ngIf="entry.replicatesIn">
+      <label for="replicates-in" class="col-sm-3">Replicates In:</label>
+      <div class="col-sm-3">{{entry.replicatesIn}}</div>
     </div>
     <!-- Supplier -->
-    <div class="row" *ngIf="entry.supplier">
-      <label for="supplier" class="col-sm-2">Supplier:</label>
-      <div class="col-sm-4">{{entry.supplier}}</div>
+    <div class="row mt-2" *ngIf="entry.supplier">
+      <label for="supplier" class="col-sm-3">Supplier:</label>
+      <div class="col-sm-3">{{entry.supplier}}</div>
     </div>
     <!-- Funding Source -->
-    <div class="row" *ngIf="entry.fundingSource">
-      <label for="fundingSource" class="col-sm-2">Funding Source:</label>
-      <div class="col-sm-4">{{entry.fundingSource}}</div>
+    <div class="row mt-2" *ngIf="entry.fundingSource">
+      <label for="fundingSource" class="col-sm-3">Funding Source:</label>
+      <div class="col-sm-3">{{entry.fundingSource}}</div>
     </div>
     <!-- Keywords -->
-    <div class="row" *ngIf="entry.keywords">
-      <label for="keywords" class="col-sm-2">Keywords:</label>
-      <div class="col-sm-4">{{entry.keywords}}</div>
+    <div class="row mt-2" *ngIf="entry.keywords">
+      <label for="keywords" class="col-sm-3">Keywords:</label>
+      <div class="col-sm-3">{{entry.keywords}}</div>
     </div>
     <!-- Benchling Link -->
-    <div class="row" *ngIf="entry.benchlingLink">
-      <label for="benchlingLink" class="col-sm-2">Benchling Link:</label>
-      <div class="col-sm-4">{{entry.benchlingLink}}</div>
+    <div class="row mt-2" *ngIf="entry.benchlingLink">
+      <label for="benchlingLink" class="col-sm-3">Benchling Link:</label>
+      <div class="col-sm-3">{{entry.benchlingLink}}</div>
     </div>
     <!-- Selection Markers -->
-    <div class="row" *ngIf="entry.selectionMarkers">
-      <label for="selectionMarkers" class="col-sm-2">Selection Markers:</label>
-      <div class="col-sm-4">{{entry.selectionMarkers.toString()}}</div>
+    <div class="row mt-2" *ngIf="entry.selectionMarkers">
+      <label for="selectionMarkers" class="col-sm-3">Selection Markers:</label>
+      <div class="col-sm-3">{{entry.selectionMarkers.toString()}}</div>
     </div>
     <!-- promoter -->
-    <div class="row" *ngIf="entry.promoter">
-      <label for="promoter" class="col-sm-2">Promoters:</label>
-      <div class="col-sm-4">{{entry.promoter.toString()}}</div>
+    <div class="row mt-2" *ngIf="entry.promoter">
+      <label for="promoter" class="col-sm-3">Promoters:</label>
+      <div class="col-sm-3">{{entry.promoter.toString()}}</div>
     </div>
     <!-- Disease -->
-    <div class="row" *ngIf="entry.disease">
-      <label for="disease" class="col-sm-2">Disease:</label>
-      <div class="col-sm-4">{{entry.disease.toString()}}</div>
+    <div class="row mt-2" *ngIf="entry.disease">
+      <label for="disease" class="col-sm-3">Disease:</label>
+      <div class="col-sm-3">{{entry.disease.toString()}}</div>
     </div>
     <!-- HLA -->
-    <div class="row" *ngIf="entry.hla">
-      <label for="hla" class="col-sm-2">HLA:</label>
-      <div class="col-sm-4">{{entry.hla.toString()}}</div>
+    <div class="row mt-2" *ngIf="entry.hla">
+      <label for="hla" class="col-sm-3">HLA:</label>
+      <div class="col-sm-3">{{entry.hla.toString()}}</div>
     </div>
     <!-- epitope -->
-    <div class="row" *ngIf="entry.epitope">
-      <label for="epitope" class="col-sm-2">Epitope</label>
-      <div class="col-sm-4">{{entry.epitope.toString()}}</div>
+    <div class="row mt-2" *ngIf="entry.epitope">
+      <label for="epitope" class="col-sm-3">Epitope:</label>
+      <div class="col-sm-3">{{entry.epitope.toString()}}</div>
     </div>
     <!-- domain -->
-    <div class="row" *ngIf="entry.domain">
-      <label for="domain" class="col-sm-2">Domains</label>
-      <div class="col-sm-4">{{entry.domain.toString()}}</div>
+    <div class="row mt-2" *ngIf="entry.domain">
+      <label for="domain" class="col-sm-3">Domains:</label>
+      <div class="col-sm-3">{{entry.domain.toString()}}</div>
     </div>
     <!-- Antigen -->
-    <div class="row" *ngIf="entry.antigen">
-      <label for="antigen" class="col-sm-2">Antigen</label>
-      <div class="col-sm-4">{{entry.antigen.toString()}}</div>
+    <div class="row mt-2" *ngIf="entry.antigen">
+      <label for="antigen" class="col-sm-3">Antigen:</label>
+      <div class="col-sm-3">{{entry.antigen.toString()}}</div>
     </div>
     <!-- External URL -->
-    <div class="row" *ngIf="entry.links">
-      <label for="links" class="col-sm-2">External URL</label>
-      <div class="col-sm-4">{{entry.links.toString()}}</div>
+    <div class="row mt-2" *ngIf="entry.links">
+      <label for="links" class="col-sm-3">External URL:</label>
+      <div class="col-sm-3">{{entry.links.toString()}}</div>
     </div>
 
     <!-- genotype/phenotype -->
-    <div class="row" *ngIf="entry.strainData">
-      <label for="summary" class="col-sm-2">Genotype/Phenotype</label>
-      <div class="col-sm-4">{{entry.strainData.genotypePhenotype}}</div>
+    <div class="row mt-2" *ngIf="entry.strainData">
+      <label for="summary" class="col-sm-3">Genotype/Phenotype:</label>
+      <div class="col-sm-3">{{entry.strainData.genotypePhenotype}}</div>
     </div>
 
     <!-- summary -->
-    <div class="row" *ngIf="entry.shortDescription">
-      <label for="summary" class="col-sm-2">Summary</label>
-      <div class="col-sm-4">{{entry.shortDescription}}</div>
+    <div class="row mt-2" *ngIf="entry.shortDescription">
+      <label for="summary" class="col-sm-3">Summary:</label>
+      <div class="col-sm-9">{{entry.shortDescription}}</div>
     </div>
     <!-- references -->
-    <div class="row" *ngIf="entry.references">
-      <label for="references" class="col-sm-2">References</label>
-      <div class="col-sm-4">{{entry.references}}</div>
+    <div class="row mt-2" *ngIf="entry.references">
+      <label for="references" class="col-sm-3">References:</label>
+      <div class="col-sm-9">{{entry.references}}</div>
     </div>
     <!-- Intellectual Property -->
-    <div class="row" *ngIf="entry.intellectualProperty">
-      <label for="intellectualProperty" class="col-sm-2">Intellectual Property</label>
-      <div class="col-sm-4">{{entry.intellectualProperty}}</div>
+    <div class="row mt-2" *ngIf="entry.intellectualProperty">
+      <label for="intellectualProperty" class="col-sm-3">Intellectual Property:</label>
+      <div class="col-sm-9">{{entry.intellectualProperty}}</div>
     </div>
     <!-- Notes -->
-    <div class="row" *ngIf="entry.longDescription">
-      <label for="longDescription" class="col-sm-2">Notes</label>
-      <div class="col-sm-4">{{entry.longDescription}}</div>
+    <div class="row mt-2" *ngIf="entry.longDescription">
+      <label for="longDescription" class="col-sm-3">Notes:</label>
+      <div class="col-sm-9">{{entry.longDescription}}</div>
     </div>
   </div>
 </div>

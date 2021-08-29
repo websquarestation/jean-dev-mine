@@ -11,20 +11,20 @@ import { EntryComponent } from './entry/entry.component';
 import { SearchComponent } from './search/search.component';
 import { CreateenteryComponent } from './createentery/createentery.component';
 import { ProfileComponent } from './profile/profile.component';
+import { EditEntriesComponent } from './edit-entries/edit-entries.component';
 
 const routes: Routes = [
-  { path: 'enteries', component: EnteriesComponent },
   { path: 'enteries/:keyword', component: EnteriesComponent },
   { path: 'login', component: LoginComponent },
   { path: 'search', component: SearchComponent },
   { path: 'create/entery', component: CreateenteryComponent },
-  { path: 'folders/personal', component: EnteriesComponent },
+  { path: 'upload/:id', component: EditEntriesComponent },
+  { path: 'enteries/folder/:folderId', component: EnteriesComponent },
   { path: 'entry/:id', component: EntryComponent },
+  { path: 'entery/:id', component: CreateenteryComponent },
   { path: 'profile', component: ProfileComponent },
-  // { path: 'user', component: BoardUserComponent },
-  // { path: 'mod', component: BoardModeratorComponent },
-  // { path: 'admin', component: BoardAdminComponent },
-  { path: '', redirectTo: 'enteries', pathMatch: 'full' }
+  { path: 'profile/:slug', component: ProfileComponent },
+  { path: '', redirectTo: 'enteries/folder/personal', pathMatch: 'full' }
 ];
 
 @NgModule({

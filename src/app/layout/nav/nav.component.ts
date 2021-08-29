@@ -115,7 +115,12 @@ export class NavComponent implements OnInit {
   }
 
   goToPage(url: any) {
+    console.log(url);
     this.router.navigate([url]);
+  }
+
+  gotoFolder(folderId: any): void {
+    this.router.navigate([`/enteries/folder/${folderId}`])
   }
 
 }

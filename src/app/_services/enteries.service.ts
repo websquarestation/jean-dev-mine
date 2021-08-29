@@ -15,7 +15,8 @@ export class EnteriesService {
     this.baseURL = environment.baseUrl;
   }
 
-  readAll(params: HttpParams): Observable<Enteries[]> {
+  readAll(params: any): Observable<Enteries[]> {
+    console.log('params', params);
     return this.httpClient.get<Enteries[]>(this.baseURL + '/collections/personal/entries', { params });
   }
 
@@ -25,6 +26,14 @@ export class EnteriesService {
   
   create(data: any): Observable<any> {
     return this.httpClient.post(this.baseURL + '/parts', data);
+  }
+
+  update(id: any, data: any): Observable<any> {
+    return this.httpClient.put(this.baseURL + '/parts/' + id, data);
+  }
+
+  updateField(id: any, field: any, data: any): Observable<any> {
+    return this.httpClient.put(this.baseURL + `/parts/${id}/${field}`, data);
   }
 
   postFile(fileToUpload: File):Observable<any> {
@@ -46,13 +55,9 @@ export class EnteriesService {
       .post(this.baseURL + '/file/sequence', formData);
   }
 
-  // delete(id): Observable<any> {
-  //   return this.httpClient.delete(`${baseURL}/${id}`);
-  // }
-
-  // deleteAll(): Observable<any> {
-  //   return this.httpClient.delete(baseURL);
-  // }
+  trash(idData: any): Observable<any> {
+    return this.httpClient.post(this.baseURL + `/parts/trash`, idData);
+  }
 
   // searchByName(name): Observable<any> {
   //   return this.httpClient.get(`${baseURL}?name=${name}`);

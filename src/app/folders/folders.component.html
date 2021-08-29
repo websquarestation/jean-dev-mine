@@ -1,0 +1,52 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add Selected Entries to Folders</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <div class="row filter-row">
+      <div class="col-md-8">
+        <input type="text" placeholder="Filter Folders" name="filterText" [(ngModel)]="filterText" />
+      </div>
+      <div class="col-md-4">
+        <small class="text-muted pull-right">{{totalFolders}} folders selected</small>
+      </div>
+    </div>
+
+    <div class="row" [ngClass]="{'folder-row': !last}" *ngFor="let folder of folders | filter:filterText; let last = last;">
+      <div class="col-md-1">
+        <input type="checkbox"  (change)="changeSelection(folder, $event)"/>
+      </div>
+      <div class="col-md-8">
+        <span class="folder-name">{{folder.folderName}}</span><br />
+        <span class="folder-type">{{folder.type}}</span>
+      </div>
+    </div>
+    <div *ngIf="folders.length == 0" class="col-md-12">
+      <small class="text-danger text-center">No folders found!!</small>
+    </div>
+  
+</div>
+<div class="modal-footer footer">
+  <div class="row">
+    <div class="col-md-10">
+      <div>
+        <button *ngIf="!createFolder" class="btn btn-xs pull-left btn-success" role="button"
+                (click)="enableCreateFolder()">Create Folder</button>
+        </div>
+        <div class="row createfolder" *ngIf="createFolder">
+          <div class="col-md-5">
+            <input type="text" class="" placeholder="New Folder Name" name="txtFolder" [(ngModel)]="txtFolder" />
+          </div>
+          <div class="col-md-5 btn-group">
+            <button class="btn btn-success btn-sm" role="button" (click)="saveFolder()">Save</button>
+            <button class="btn btn-danger btn-sm" role="button" (click)="disableCreateFolder()">Close</button>
+          </div>
+        </div>         
+    </div>      
+    <div class="col-md-2">
+      <button class="btn btn-primary" role="button" (click)="moveToFolder()">Submit</button>
+    </div>
+  </div>
+</div>

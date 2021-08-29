@@ -13,6 +13,33 @@ export class HeaderComponent implements OnInit {
   isLoggedIn = false;
   username = '';
   searchKeyword: string | null;
+  createTypes: any = [
+    {
+      "title": "PlasmId",
+      "icon": "fa-plus-square",
+      "slug": ""
+    },
+    {
+      "title": "Strain",
+      "icon": "fa-plus-square",
+      "slug": ""
+    },
+    {
+      "title": "Part",
+      "icon": "fa-plus-square",
+      "slug": ""
+    },
+    {
+      "title": "Protien",
+      "icon": "fa-plus-square",
+      "slug": ""
+    },
+    {
+      "title": "Order",
+      "icon": "fa-plus-square",
+      "slug": ""
+    }
+  ];
   constructor (
         private router: Router,
         private tokenStorageService: TokenStorageService,
@@ -34,6 +61,7 @@ export class HeaderComponent implements OnInit {
   }
 
   createEntery(type: String): void {
+    console.log("t----", type);
     this.router.navigate(['/create/entery'], { queryParams: { type: type } });
   }
 

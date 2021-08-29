@@ -1,4 +1,48 @@
-  .partid {
+button.action-menu {
+  border-radius: 3px;
+  padding: 1px;
+  color: #555;
+  margin: auto;
+  height: 34px;
+  width: 65px;
+  line-height: 50%;
+  border: 1px solid #b6b6b7;
+  background-color: #dfddf7;
+}
+
+  .btns {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+
+  .font-55em {
+    font-size: 0.55em;
+  }
+
+  .btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+
+.partid {
     color: blue;
     text-decoration: underline;
     cursor: pointer;
@@ -47,3 +91,8 @@
   table.dataTable thead th, table.dataTable thead td {
     padding: 7px 10px!important;
   }
+
+.shortdesc {
+  color: #5f5252;
+  font-size: 0.7rem;
+}

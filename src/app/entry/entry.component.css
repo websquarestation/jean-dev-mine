@@ -1,43 +1,21 @@
-.top {
-  background-color: #dcddff;
-  height: 60px;
-}
-.back-btn {
-  float: left;
-  vertical-align: middle;
-  margin-top: 5px;
-  cursor: pointer;
-}
-
-.heading {
-  float: left;
-  padding-left: 5px;
-  font-weight: bold;
-}
-
-  .heading .main {
-    font-size: 20px;
+  .detail-form label {
+    color: #7c7d94;
+    font-weight: 500;
   }
 
-  .heading .type {
-    color: #a2a5ab;
-  }
-
-  .heading .sub {
-    font-size: 13px;
-    font-weight: normal;
-  }
-
-  .heading .dt {
-    color: #5e5c69;
-  }
-
-  .heading .creator {
-    color: blue;
-    text-decoration: underline;
+  .detail-form .fa {
+    font-size: 12px;
+    color: #7e8396;
+    margin-left: 10px;
     cursor: pointer;
   }
 
-.detail-form label {
-  color: #7c7d94;
+  .form-group input {
+    font-size: 12px;
+    width: 200px;
+  }
+
+.form-group input, button {
+  height: 30px;
+  margin-left: 5px;
 }
