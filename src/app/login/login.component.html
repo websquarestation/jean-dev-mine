@@ -74,7 +74,7 @@
 	      Logged in as {{ roles }}.
 	    </div>
 	    <!-- Remind Passowrd -->
-	    <div class="formFooter">
+	    <div class="formFooter" *ngIf="!isLoggedIn">
 	      <a class="underlineHover" href="#">Forgot Password?</a>
 	    </div>
 	  </div>

@@ -63,3 +63,7 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.ngx-file-drop__drop-zone {
+  border: 0px!important;
+}

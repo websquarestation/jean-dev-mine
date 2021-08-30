@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataTablesModule } from "angular-datatables";
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TimeagoModule } from 'ngx-timeago';
+import { NgxFileDropModule } from 'ngx-file-drop';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
@@ -68,7 +69,8 @@ import { EditEntriesComponent } from './edit-entries/edit-entries.component';
     NgSelectModule,
     ToastrModule.forRoot(),
     Ng2SearchPipeModule,
-    TimeagoModule.forRoot()
+    TimeagoModule.forRoot(),
+    NgxFileDropModule
   ],
   providers: [
     authInterceptorProviders,

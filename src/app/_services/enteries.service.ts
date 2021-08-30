@@ -55,6 +55,15 @@ export class EnteriesService {
       .post(this.baseURL + '/file/sequence', formData);
   }
 
+  uploadSingleSeqFile(seqid: any, id: any, type: string, fileToUpload: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    formData.append('entryType', type);
+    formData.append('entryId', id);
+    return this.httpClient
+      .post(this.baseURL + `/uploads/${seqid}/sequence`, formData);
+  }
+
   trash(idData: any): Observable<any> {
     return this.httpClient.post(this.baseURL + `/parts/trash`, idData);
   }

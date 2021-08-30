@@ -4,6 +4,9 @@ import { TimeagoIntl } from 'ngx-timeago';
 import { strings as englishStrings } from 'ngx-timeago/language-strings/en';
 import { EditEntriesService } from '../_services/editentries.service';
 import { NotificationService } from '../_services/notification.service';
+import { EnteriesService } from '../_services/enteries.service';
+import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+
 
 @Component({
   selector: 'app-edit-entries',
@@ -17,9 +20,12 @@ export class EditEntriesComponent implements OnInit {
   dataset: any[];
   lastUpdate: any = new Date();
   curChange: any;
+  public files: NgxFileDropEntry[] = [];
+
   constructor(
     private router: Router,
     private editEntriesService: EditEntriesService,
+    private entriesService: EnteriesService,
     private notifyService: NotificationService,
     private route: ActivatedRoute) { }
 
@@ -119,5 +125,58 @@ export class EditEntriesComponent implements OnInit {
 
   gotoBack(): void {    
     this.router.navigate(['/enteries/folder/personal']);
+  }
+
+  dropped(id: any, files: NgxFileDropEntry[]): void {
+    this.files = files;
+    for (const droppedFile of files) {
+
+      // Is it a file?
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+
+          // Here you can access the real file
+          console.log(droppedFile.relativePath, file);
+
+          this.entriesService.uploadSingleSeqFile(this.id, id, 'plasmid', file)          
+          .subscribe(
+            (res: any) => {
+              console.log("response", res);
+              this.notifyService.showSuccess("Entry Seq File updated successfully !!", "Single Field Update");
+            },
+            err => {
+              //console.log("enteries error", err);
+              this.notifyService.showError("Entry Seq File error: " + err.message, "Single Field Update");
+            }
+          );
+          /**
+          // You could upload it like this:
+          const formData = new FormData()
+          formData.append('logo', file, relativePath)
+
+          // Headers
+          const headers = new HttpHeaders({
+            'security-token': 'mytoken'
+          })
+
+          this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', formData, { headers: headers, responseType: 'blob' })
+          .subscribe(data => {
+            // Sanitized logo returned from backend
+          })
+          **/
+
+        });
+      } else {
+        // It was a directory (empty directories are added, otherwise only files)
+        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+        console.log(droppedFile.relativePath, fileEntry);
+        this.notifyService.showError("File Upload Error", "Single Field Update");
+      }
+    }
+  }
+
+  dragInfo(): void {
+    this.notifyService.showInfo("Drag to upload new file !!", "Single Field Update");
   }
 }

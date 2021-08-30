@@ -114,7 +114,13 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td (blur)="updateList(item.id, 'sequenceFileName', $event)" (click)="changeValue(item.id,'sequenceFileName',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.sequenceFileName}}</td>
+                <td title="drag to uload new file">
+                  <ngx-file-drop class="uploadfile" (click)="dragInfo()" dropZoneLabel="Drop files here" (onFileDrop)="dropped(item.id, $event)">
+                        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                          {{item.sequenceFileName}}                          
+                        </ng-template>
+                    </ngx-file-drop>
+                  </td>
                 <td></td>                               
               </tr>
             </tbody>
