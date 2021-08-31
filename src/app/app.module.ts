@@ -40,6 +40,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { FoldersComponent } from './folders/folders.component';
 import { EditEntriesComponent } from './edit-entries/edit-entries.component';
 
+import { ConfirmDialogModule } from './confirm-dialog/confirm-dialog.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +72,8 @@ import { EditEntriesComponent } from './edit-entries/edit-entries.component';
     ToastrModule.forRoot(),
     Ng2SearchPipeModule,
     TimeagoModule.forRoot(),
-    NgxFileDropModule
+    NgxFileDropModule,
+    ConfirmDialogModule
   ],
   providers: [
     authInterceptorProviders,

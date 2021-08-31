@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://jean-dev.jurabio.com/rest'
+  baseUrl: 'https://jean-dev.jurabio.com/rest'
 };
 
 /*

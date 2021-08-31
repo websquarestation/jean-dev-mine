@@ -21,6 +21,7 @@ export class EditEntriesComponent implements OnInit {
   lastUpdate: any = new Date();
   curChange: any;
   public files: NgxFileDropEntry[] = [];
+  seqFile: any;
 
   constructor(
     private router: Router,
@@ -40,7 +41,6 @@ export class EditEntriesComponent implements OnInit {
     this.editEntriesService.getUploads(this.id, this.limit, this.offset)
       .subscribe(
         (res: any) => {
-          console.log("res----", res);
           this.dataset = res.entryList;
           this.lastUpdate = res.created;
         });
@@ -138,7 +138,7 @@ export class EditEntriesComponent implements OnInit {
 
           // Here you can access the real file
           console.log(droppedFile.relativePath, file);
-
+          this.seqFile = file.name;
           this.entriesService.uploadSingleSeqFile(this.id, id, 'plasmid', file)          
           .subscribe(
             (res: any) => {
@@ -177,6 +177,6 @@ export class EditEntriesComponent implements OnInit {
   }
 
   dragInfo(): void {
-    this.notifyService.showInfo("Drag to upload new file !!", "Single Field Update");
+    this.notifyService.showInfo("Drag to upload new Sequence file, Supported file formats are Genbank, Fasta and SBOL !!", "Single Field Update");
   }
 }

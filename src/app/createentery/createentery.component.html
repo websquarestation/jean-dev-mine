@@ -45,15 +45,15 @@
 
 					<!-- rating -->
 					<div class="form-group row">
-						<label for="stars" class="col-sm-3 col-form-label">Star Rating:</label>
-						<div class="col-sm-10">
+						<label for="stars" class="col-sm-2 col-form-label">Star Rating:</label>
+						<div class="col-sm-8">
 							<ngb-rating id="stars" [(rate)]="currentRate" [max]="5"></ngb-rating>
 						</div>
 					</div>
 
 					<!-- description -->
 					<div class="form-group row">
-						<label for="ratingDescription" class="col-sm-3 col-form-label">Rating Description:</label>
+						<label for="ratingDescription" class="col-sm-2 col-form-label">Rating Description:</label>
 						<div class="col-sm-4">
 							<textarea placeholder="Rating Description" class="form-control" name="ratingDescription" #ratingDescription="ngModel" rows="3" [(ngModel)]="createEnteryModel.ratingDescription"></textarea>
 						</div>
@@ -61,7 +61,7 @@
 
 					<!-- Name -->
 					<div class="form-group row">
-						<label for="name" class="col-sm-3 col-form-label">Name:<span class="mandatory">*</span></label>
+						<label for="name" class="col-sm-2 col-form-label">Name:<span class="mandatory">*</span></label>
 						<div class="col-sm-4">
 							<input type="text" required="required" placeholder="Name" [class.is-invalid]="name.invalid && name.touched" class="form-control" name="name" [(ngModel)]="createEnteryModel.name" #name="ngModel" />
 						</div>
@@ -71,7 +71,7 @@
 
 					<!-- Alias -->
 					<div class="form-group row">
-						<label for="alias" class="col-sm-3 col-form-label">Alias:</label>
+						<label for="alias" class="col-sm-2 col-form-label">Alias:</label>
 						<div class="col-sm-4">
 							<input type="text" placeholder="Alias" class="form-control" name="alias" [(ngModel)]="createEnteryModel.alias" #alias="ngModel" />
 						</div>
@@ -79,7 +79,7 @@
 
 					<!-- Host -->
 					<div class="form-group row" *ngIf="isHost">
-						<label for="alias" class="col-sm-3 col-form-label">Host:</label>
+						<label for="alias" class="col-sm-2 col-form-label">Host:</label>
 						<div class="col-sm-4">
 							<input type="text" placeholder="Host" class="form-control" name="host" [(ngModel)]="createEnteryModel.host" #alias="ngModel" />
 						</div>
@@ -87,18 +87,18 @@
 
 					<!-- Creator -->
 					<div class="form-group row">
-						<label for="creator" class="col-sm-3 col-form-label">Creator:</label>
-						<div class="col-sm-3">
+						<label for="creator" class="col-sm-2 col-form-label">Creator:</label>
+						<div class="col-sm-2">
 							<input type="text" placeholder="Creator" class="form-control" name="creator" #creator="ngModel" [(ngModel)]="createEnteryModel.creator" disabled="disabled" />
 						</div>
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 							<input type="text" placeholder="Email" class="form-control" name="creatorEmail" [(ngModel)]="createEnteryModel.creatorEmail" #creatorEmail="ngModel" disabled="disabled" />
 						</div>
 					</div>
 
 					<!-- Creation Date -->
 					<div class="form-group row">
-						<label for="creation-date" class="col-sm-3 col-form-label">Creation Date:</label>
+						<label for="creation-date" class="col-sm-2 col-form-label">Creation Date:</label>
 						<div class="col-sm-4">
 							<ngx-datepicker [options]="options" name="creationDate" [(ngModel)]="CreationDate"></ngx-datepicker>
 							<i class="fas fa-calendar cal" aria-hidden="true"></i>
@@ -107,15 +107,15 @@
 
 					<!-- Circular -->
 					<div class="form-group row" *ngIf="isCircular">
-						<label for="circular" class="col-sm-3 col-form-label">Circular:</label>
-						<div class="col-sm-3">
+						<label for="circular" class="col-sm-2 col-form-label">Circular:</label>
+						<div class="col-sm-2">
 							<input type="checkbox" class="form-check-input form-control" name="circular" [(ngModel)]="createEnteryModel.circular" #circular="ngModel" />
 						</div>
 					</div>
 
 					<!-- verified -->
 					<div class="form-group row">
-						<label for="verified" class="col-sm-3 col-form-label">Experimentally Verified:</label>
+						<label for="verified" class="col-sm-2 col-form-label">Experimentally Verified:</label>
 						<div class="col-sm-4">
 							<input type="checkbox" class="form-check-input form-control" name="verified" [(ngModel)]="createEnteryModel.verified" #verified="ngModel" />
 						</div>
@@ -123,7 +123,7 @@
 
 					<!-- status -->
 					<div class="form-group row">
-						<label for="status" class="col-sm-3 col-form-label">Status:<span class="mandatory">*</span></label>
+						<label for="status" class="col-sm-2 col-form-label">Status:<span class="mandatory">*</span></label>
 						<div class="col-sm-4">
 							<select class="form-select" name="status" [(ngModel)]="createEnteryModel.status" #status="ngModel">
 								<option value="Complete" selected="selected">Complete</option>
@@ -136,7 +136,7 @@
 
 					<!-- BioSafety Level -->
 					<div class="form-group row">
-						<label for="bioSafetyLevel" class="col-sm-3 col-form-label">BioSafety Level:<span class="mandatory">*</span></label>
+						<label for="bioSafetyLevel" class="col-sm-2 col-form-label">BioSafety Level:<span class="mandatory">*</span></label>
 						<div class="col-sm-4">
 							<select class="form-select" name="bioSafetyLevel" [(ngModel)]="createEnteryModel.bioSafetyLevel" #bioSafetyLevel="ngModel">
 								<option value="1" selected="selected">Level 1</option>
@@ -148,7 +148,7 @@
 
 					<!-- Expression Type -->
 					<div class="form-group row">
-						<label for="bioSafetyLevel" class="col-sm-3 col-form-label">Expression Type:</label>
+						<label for="bioSafetyLevel" class="col-sm-2 col-form-label">Expression Type:</label>
 						<div class="col-sm-4">
 							<select class="form-select" name="expressionType" [(ngModel)]="createEnteryModel.expressionType" #expressionType="ngModel">
 								<option value="DNA" selected="selected">DNA</option>
@@ -160,7 +160,7 @@
 
 					<!-- source lab -->
 					<div class="form-group row">
-						<label for="source-lab" class="col-sm-3 col-form-label">Source Lab:</label>
+						<label for="source-lab" class="col-sm-2 col-form-label">Source Lab:</label>
 						<div class="col-sm-4">
 							<ng-select bindLabel="name"
 												 bindValue="name"
@@ -179,7 +179,7 @@
 
 					<!-- backbone -->
 					<div class="form-group row" *ngIf="isBackbone">
-						<label for="backbone" class="col-sm-3 col-form-label">Backbone:</label>
+						<label for="backbone" class="col-sm-2 col-form-label">Backbone:</label>
 						<div class="col-sm-4">
 							<ng-select bindLabel="name"
 												 bindValue="name"
@@ -198,7 +198,7 @@
 
 					<!-- Origin of Replication -->
 					<div class="form-group row" *ngIf="isOriginReplication">
-						<label for="origin-replication" class="col-sm-3 col-form-label">Origin of Replication:</label>
+						<label for="origin-replication" class="col-sm-2 col-form-label">Origin of Replication:</label>
 						<div class="col-sm-4">
 							<ng-select bindLabel="name"
 												 bindValue="name"
@@ -217,7 +217,7 @@
 
 					<!-- Replicates In -->
 					<div class="form-group row" *ngIf="isReplicatesIn">
-						<label for="replicates-in" class="col-sm-3 col-form-label">Replicates In:</label>
+						<label for="replicates-in" class="col-sm-2 col-form-label">Replicates In:</label>
 						<div class="col-sm-4">
 							<ng-select bindLabel="name"
 												 bindValue="name"
@@ -236,7 +236,7 @@
 
 					<!-- Supplier -->
 					<div class="form-group row">
-						<label for="supplier" class="col-sm-3 col-form-label">Supplier:</label>
+						<label for="supplier" class="col-sm-2 col-form-label">Supplier:</label>
 						<div class="col-sm-4">
 							<ng-select bindLabel="name"
 												 bindValue="name"
@@ -255,7 +255,7 @@
 
 					<!-- Funding Source -->
 					<div class="form-group row">
-						<label for="fundingSource" class="col-sm-3 col-form-label">Funding Source:</label>
+						<label for="fundingSource" class="col-sm-2 col-form-label">Funding Source:</label>
 						<div class="col-sm-4">
 							<input type="text" placeholder="Funding Source" class="form-control" name="fundingSource" [(ngModel)]="createEnteryModel.fundingSource" #fundingSource="ngModel" />
 						</div>
@@ -263,7 +263,7 @@
 
 					<!-- Keywords -->
 					<div class="form-group row">
-						<label for="keywords" class="col-sm-3 col-form-label">Keywords:</label>
+						<label for="keywords" class="col-sm-2 col-form-label">Keywords:</label>
 						<div class="col-sm-4">
 							<input type="text" placeholder="Keywords" class="form-control" name="keywords" [(ngModel)]="createEnteryModel.keywords" #keywords="ngModel" />
 						</div>
@@ -271,7 +271,7 @@
 
 					<!-- Benchling Link -->
 					<div class="form-group row">
-						<label for="benchlingLink" class="col-sm-3 col-form-label">Benchling Link:</label>
+						<label for="benchlingLink" class="col-sm-2 col-form-label">Benchling Link:</label>
 						<div class="col-sm-4">
 							<input type="text" placeholder="Benchling Link" class="form-control" name="benchlingLink" [(ngModel)]="createEnteryModel.benchlingLink" #benchlingLink="ngModel" />
 						</div>
@@ -279,7 +279,7 @@
 
 					<!-- Selection Markers -->
 					<div class="form-group row">
-						<label for="selectionMarkers" class="col-sm-3 col-form-label">Selection Markers:<span class="mandatory">*</span></label>
+						<label for="selectionMarkers" class="col-sm-2 col-form-label">Selection Markers:<span class="mandatory">*</span></label>
 						<div class="col-sm-4">
 							<ng-container *ngFor="let sminp of seletionmakersInp; let i1 = index">
 								<div>
@@ -299,8 +299,8 @@
 					</div>
 
 					<!-- promoter -->
-					<div class="form-group row">
-						<label for="promoter" class="col-sm-3 col-form-label">
+					<div class="form-group row" *ngIf="isPromoters">
+						<label for="promoter" class="col-sm-2 col-form-label">
 							Promoters:
 						</label>
 						<div class="col-sm-4">
@@ -320,7 +320,7 @@
 
 					<!-- Disease -->
 					<div class="form-group row">
-						<label for="disease" class="col-sm-3 col-form-label">Disease:</label>
+						<label for="disease" class="col-sm-2 col-form-label">Disease:</label>
 						<div class="col-sm-4">
 							<ng-container *ngFor="let dinp of diseasesInp; let i = index">
 								<div>
@@ -338,7 +338,7 @@
 
 					<!-- HLA -->
 					<div class="form-group row">
-						<label for="hla" class="col-sm-3 col-form-label">HLA:</label>
+						<label for="hla" class="col-sm-2 col-form-label">HLA:</label>
 						<div class="col-sm-4">
 							<ng-container *ngFor="let hlnp of hlaInp; let i3 = index">
 								<div>
@@ -356,7 +356,7 @@
 
 					<!-- epitope -->
 					<div class="form-group row">
-						<label for="epitope" class="col-sm-3 col-form-label">Epitope</label>
+						<label for="epitope" class="col-sm-2 col-form-label">Epitope</label>
 						<div class="col-sm-4">
 							<ng-container *ngFor="let epip of epitopeInp; let i4 = index">
 								<div>
@@ -374,7 +374,7 @@
 
 					<!-- domain -->
 					<div class="form-group row">
-						<label for="domain" class="col-sm-3 col-form-label">Domains</label>
+						<label for="domain" class="col-sm-2 col-form-label">Domains</label>
 						<div class="col-sm-4">
 							<ng-container *ngFor="let domip of domainInp; let i5 = index">
 								<div>
@@ -392,7 +392,7 @@
 
 					<!-- Antigen -->
 					<div class="form-group row">
-						<label for="antigen" class="col-sm-3 col-form-label">Antigen</label>
+						<label for="antigen" class="col-sm-2 col-form-label">Antigen</label>
 						<div class="col-sm-4">
 							<ng-container *ngFor="let enjip of antigenInp; let i6 = index">
 								<div>
@@ -410,7 +410,7 @@
 
 					<!-- External URL -->
 					<div class="form-group row">
-						<label for="links" class="col-sm-3 col-form-label">External URL</label>
+						<label for="links" class="col-sm-2 col-form-label">External URL</label>
 						<div class="col-sm-4">
 							<ng-container *ngFor="let lip of linksInp; let i7 = index">
 								<div>
@@ -428,7 +428,7 @@
 
 					<!-- genotype/phenotype -->
 					<div class="form-group row" *ngIf="isGenotype">
-						<label for="summary" class="col-sm-3 col-form-label">Genotype/Phenotype</label>
+						<label for="summary" class="col-sm-2 col-form-label">Genotype/Phenotype</label>
 						<div class="col-sm-4">
 							<textarea placeholder="Genotype/Phenotype" class="form-control" name="genotypePhenotype" rows="3" [(ngModel)]="createEnteryModel.genotypePhenotype" #shortDescription="ngModel"></textarea>
 						</div>
@@ -436,7 +436,7 @@
 
 					<!-- summary -->
 					<div class="form-group row">
-						<label for="summary" class="col-sm-3 col-form-label">Summary<span class="mandatory">*</span></label>
+						<label for="summary" class="col-sm-2 col-form-label">Summary<span class="mandatory">*</span></label>
 						<div class="col-sm-4">
 							<textarea placeholder="Summary" class="form-control" name="shortDescription" rows="3" [(ngModel)]="createEnteryModel.shortDescription" #shortDescription="ngModel"></textarea>
 						</div>
@@ -444,7 +444,7 @@
 
 					<!-- references -->
 					<div class="form-group row">
-						<label for="references" class="col-sm-3 col-form-label">References</label>
+						<label for="references" class="col-sm-2 col-form-label">References</label>
 						<div class="col-sm-4">
 							<textarea placeholder="References" class="form-control" name="references" rows="3" [(ngModel)]="createEnteryModel.references" #references="ngModel"></textarea>
 						</div>
@@ -452,7 +452,7 @@
 
 					<!-- Intellectual Property -->
 					<div class="form-group row">
-						<label for="intellectualProperty" class="col-sm-3 col-form-label">Intellectual Property</label>
+						<label for="intellectualProperty" class="col-sm-2 col-form-label">Intellectual Property</label>
 						<div class="col-sm-4">
 							<textarea placeholder="Intellectual Property" [class.is-invalid]="intellectualProperty.invalid && intellectualProperty.touched" class="form-control" name="intellectualProperty" rows="3" [(ngModel)]="createEnteryModel.intellectualProperty" #intellectualProperty="ngModel"></textarea>
 						</div>
@@ -469,10 +469,10 @@
 						<div class="col-sm-8">
 							<ng-container *ngFor="let prp of this.createEnteryModel.parameters; let ip = index">
 								<div class="row">
-									<div class="col-sm-3">
+									<div class="col-sm-2">
 										<input type="text" placeholder="Label" [(ngModel)]="prp.name" class="form-control" name="pname{{ip}}" />
 									</div>
-									<div class="col-sm-3">
+									<div class="col-sm-2">
 										<input type="text" placeholder="Value" [(ngModel)]="prp.value" class="form-control" name="pvalue{{ip}}" />
 									</div>
 									<div class="col-sm-2">
@@ -490,7 +490,7 @@
 
 					<!-- Attachments -->
 					<div class="form-group row">
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 							<label class="col-form-label attachments-labels">
 								<i class="fa fa-paperclip font-90em"></i>
 								Attachments
@@ -541,7 +541,7 @@
 
 						<!-- Notes -->
 						<div class="form-group row">
-							<label for="longDescription" class="col-sm-3 col-form-label">Notes</label>
+							<label for="longDescription" class="col-sm-2 col-form-label">Notes</label>
 							<div class="col-sm-4">
 								<textarea placeholder="longDescription" class="form-control" name="longDescription" rows="3" [(ngModel)]="createEnteryModel.longDescription" #longDescription="ngModel"></textarea>
 							</div>

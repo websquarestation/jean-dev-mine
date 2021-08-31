@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
 import { FoldersService } from '../../_services/folders.service';
+import { ConfirmDialogService } from '../../confirm-dialog/confirm-dialog.service';
 
 @Component({
   selector: 'app-nav',
@@ -21,7 +22,8 @@ export class NavComponent implements OnInit {
   constructor(
     private router: Router,
     private foldersService: FoldersService,
-    private httpClient: HttpClient) { }
+    private httpClient: HttpClient,
+    private confirmDialogService: ConfirmDialogService) { }
 
   ngOnInit(): void {
     this.httpClient.get("assets/navigation.json").subscribe(data =>{
@@ -100,8 +102,7 @@ export class NavComponent implements OnInit {
   }
 
   deleteFolder(id: any, folder: String) {
-    var confirm = window.confirm("Do you really want to delete {" + folder + "} folder?");
-    if(confirm) {
+    this.confirmDialogService.confirmThis("Do you really want to delete {" + folder + "} folder?", () =>  {
       this.foldersService.delete(id)
       .subscribe(
         (response: any) => {
@@ -111,7 +112,8 @@ export class NavComponent implements OnInit {
           error=JSON.parse(error._body);
         }
       );
-    }
+    }, () => {
+    });
   }
 
   goToPage(url: any) {

@@ -59,7 +59,7 @@ export class EnteriesService {
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('entryType', type);
-    formData.append('entryId', id);
+    formData.append('entryRecordId', id);
     return this.httpClient
       .post(this.baseURL + `/uploads/${seqid}/sequence`, formData);
   }

@@ -31,7 +31,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
 
           let errorMessage = '';
-
+          console.log("err", error);
           if (error.error instanceof ErrorEvent) {
 
             // client-side error
@@ -50,7 +50,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           const g = window.document.getElementById('globalError');
           if (g) {
             g.innerHTML = errorMessage;
-            g.setAttribute("style", "display: block;");
+            g.setAttribute("style", "display: block; position: absolute; left: 20%;");
           }
 
           return throwError(errorMessage);

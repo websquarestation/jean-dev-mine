@@ -73,7 +73,7 @@
                 <td (blur)="updateList(item.id, 'alias', $event)" (click)="changeValue(item.id,'alias',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.alias}}</td>
                 <td (blur)="updateList(item.id, 'creator', $event)" (click)="changeValue(item.id,'creator',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.creator}}</td>
                 <td (blur)="updateList(item.id, 'creationDate', $event)" (click)="changeValue(item.id,'creationDate',$event)" ondblclick="this.contentEditable=true;this.className='inEdit';" onblur="this.contentEditable=false;this.className='';" contenteditable="false" class="">{{item.creationDate}}</td>
-                <td><input type="checkbox" name="circular" [(ngModel)]="item.plasmidData.circular" (blur)="updateList(item.id, 'circular', $event)"></td>                
+                <td><input *ngIf="item.plasmidData" type="checkbox" name="circular" [(ngModel)]="item.plasmidData.circular" (blur)="updateList(item.id, 'circular', $event)"></td>                
                 <td><input type="checkbox" name="verified" [(ngModel)]="item.verified" (blur)="updateList(item.id, 'verified', $event)"></td>               
                 <td>
                   <select name="status" [(ngModel)]="item.status" (blur)="updateList(item.id, 'status', $event)">
@@ -117,7 +117,7 @@
                 <td title="drag to uload new file">
                   <ngx-file-drop class="uploadfile" (click)="dragInfo()" dropZoneLabel="Drop files here" (onFileDrop)="dropped(item.id, $event)">
                         <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                          {{item.sequenceFileName}}                          
+                          {{item.sequenceFileName != '' ? item.sequenceFileName: seqFile}}                          
                         </ng-template>
                     </ngx-file-drop>
                   </td>

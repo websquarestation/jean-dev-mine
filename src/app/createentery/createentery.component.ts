@@ -65,6 +65,7 @@ export class CreateenteryComponent implements OnInit {
   isBackbone: boolean = true;
   isOriginReplication: boolean = true;
   isReplicatesIn: boolean = true;
+  isPromoters: boolean = true;
   isGenotype: boolean = false;
   isHost: boolean = false;
 
@@ -132,6 +133,7 @@ export class CreateenteryComponent implements OnInit {
           this.isBackbone = false;
           this.isOriginReplication = false;
           this.isReplicatesIn = false;
+          this.isPromoters = false;
           this.isGenotype = true;
           this.isHost = true;
         }

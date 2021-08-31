@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://jeanui.digital4design.com/request.php?uri=rest'
+  baseUrl: 'http://jean-dev.jurabio.com/rest'
 };
